@@ -1,0 +1,46 @@
+[user]
+	email = ChaoticSentinel@protonmail.com
+	name = kapiushon
+[fetch]
+	prune = true
+[push]
+	default = upstream
+[pull]
+	rebase = true
+[branch "master"]
+	mergeOptions = --ff-only
+[core]
+	trustctime = false
+	ignorecase = true
+	filemode = false
+	editor = nvim
+	excludesfile = /home/kapiushon/.gitignore_global
+	pager = delta --diff-so-fancy
+[mergetool "fugitive"]
+	cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+[merge]
+	tool = fugitive
+[diff]
+	tool = fugitive
+[mergetool]
+	prompt = false
+	trustExitCode = true
+	keeptemporaries = false
+	keepbackups = false
+[difftool]
+	prompt = true
+	trustExitCode = true
+[alias]
+	last = log -1 --stat
+	cp = cherry-pick
+	co = checkout
+	cl = clone
+	ci = commit
+	st = status -sb
+	br = branch
+	unstage = reset HEAD --
+	dc = diff --cached
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative --all
+	ctags = !.git/hooks/ctags
+[init]
+	templatedir = ~/.git_template

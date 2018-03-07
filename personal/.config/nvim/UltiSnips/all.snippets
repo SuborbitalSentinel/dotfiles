@@ -1,0 +1,9 @@
+global !p
+from math import floor, ceil
+endglobal
+
+snippet /// "Comment Block" !b
+// `!p snip.rv='#'*114`
+// #`!p snip.rv = '-'*(55 - ceil(len(t[1]) / 2))` $1 `!p snip.rv = '-'*(55 - floor(len(t[1]) / 2))`#
+// `!p snip.rv='#'*114`
+endsnippet
