@@ -1,0 +1,43 @@
+global !p
+from math import floor, ceil
+from datetime import date
+import subprocess
+
+def try_int(n):
+	try:
+		return int(n)
+	except ValueError:
+		return n
+
+def lastest_app_versions():
+	cmd = "git branch --all"
+	matching_string = "remotes/origin/R_"
+	all_branches = subprocess.check_output(cmd).decode("utf-8").split()
+	all_release_branches = [b.replace(matching_string, "") for b in all_branches if matching_string in b]
+	all_release_branches.sort(key=lambda s: tuple([try_int(n) for n in s.split(".")]))
+	return all_release_branches[-5:]
+
+def complete(t, opts):
+	if t:
+		opts = [m[len(t):] for m in opts if m.startswith(t)]
+	if len(opts) == 1:
+		return opts[0]
+	return f"({'|'.join(opts)})"
+		
+def current_version_hash(v):
+	cmd = f"git rev-parse origin/R_{v}"
+	try:
+		return subprocess.check_output(cmd).decode("utf-8")
+	except:
+		return ""
+endglobal
+
+snippet issue "Template for creating field issues" b
+Incident Date: `!p snip.rv = str(date.today())`
+Issue Found By: $1
+Issue Resolved By: Adam Miller
+Sites Observed/Affected: $2
+Job #: $3
+Application Version: $4
+Version Hash: `!p snip.rv = current_version_hash(t[4])`
+endsnippet
