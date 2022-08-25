@@ -32,10 +32,40 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
+-- cmd = { "omnisharp.exe", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
 local servers = {
-    omnisharp = require('lsp_config.omnisharp_config'),
-    gopls = require('lsp_config.gopls_config'),
-    pylsp = require('lsp_config.pylsp_config'),
+    omnisharp = {
+        cmd = { "omnisharp.exe" },
+        handlers = { 
+           ["textDocument/definition"] = require('omnisharp_extended').handler,
+           ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = "rounded"}),
+           ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = "rounded"}),
+        },
+    },
+    powershell_es = {
+        bundle_path = 'c:/w/PowerShellEditorServices',
+    },
+    gopls = {
+        cmd = { 'gopls', 'serve' },
+        settings = {
+           gopls = {
+              analyses = {
+                 unusedparams = true,
+              },
+              staticcheck = true,
+           },
+        },
+        handlers = { 
+           ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = "rounded"}),
+           ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = "rounded"}),
+        },
+    },
+    pylsp = {
+        handlers = { 
+           ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = "rounded"}),
+           ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = "rounded"}),
+        },
+    },
     jsonls = {},
 }
 
