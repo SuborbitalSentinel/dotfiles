@@ -1,18 +1,11 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
-
-if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth=1', 'https://github.com/savq/paq-nvim.git', install_path})
-end
-
 vim.cmd [[
 set guifont=Hack\ NF:h10.5
 let g:neovide_cursor_animation_length=0.05
 let g:neovide_cursor_trail_length=0.5
 ]]
 
+require('plugins')
 require('settings')
-require('load_plugins')
 require('lsp_config')
 
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -54,3 +47,7 @@ set('', '<leader>p', '"+p', opts)
 set('n', '<leader>ftw', ':e ++ff=dos | w<CR>', opts)
 set('n', '<leader>ftu', ':e ++ff=dos | setlocal ff=unix | w<CR>', opts)
 set('n', '<leader>gp', '<CMD>silent %!prettier --stdin-filepath %<CR>', opts)
+
+if 1 == vim.fn.has('win32') and 1 == vim.fn.has('nvim') then
+    set('', '<C-z>', '<nop>', opts)
+end

@@ -77,4 +77,3 @@ for name, config in pairs(servers) do
     config.flags = { debounce_text_changes = 150 }
     lspconfig[name].setup(config)
 end
-
