@@ -82,7 +82,11 @@ local servers = {
     },
     omnisharp = {
         cmd = { "/home/kapiushon/.local/src/omnisharp-linux-x64/run" },
-        handlers = rounded_border_handlers,
+        handlers = {
+            ['textDocument/definition'] = require('omnisharp_extended').handler,
+            ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+            ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+        },
     },
     jedi_language_server = {
         handlers = rounded_border_handlers
