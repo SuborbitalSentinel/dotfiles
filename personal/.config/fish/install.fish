@@ -5,12 +5,6 @@ function latest_github_release_url --argument-names 'repo' 'package'
     echo (curl -s $release_url | grep -i $search_pattern | cut -d '"' -f 4)
 end
 
-# Check if paq-nvim is installed
-if not test -d ~/.local/share/nvim/site/pack/paqs/start/paq-nvim
-    echo "Installing paq-nvim..."
-    git clone --depth=1 https://github.com/savq/paq-nvim.git ~/.local/share/nvim/site/pack/paqs/start/paq-nvim
-end
-
 # Check if fzf is installed
 if not test -d ~/.config/fzf 
     echo "Installing fzf..."
