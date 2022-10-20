@@ -49,10 +49,6 @@ opt.wildignore = opt.wildignore + "tags,obj,packages,.hg,.git,.svn,*.pyc,*.spl,*
 opt.wildignore = opt.wildignore + "*.jpg,*.jpeg,*.png,*.gif,*.zip"
 opt.wildignore = opt.wildignore + "*/node_modules/*"
 
-g.tokyonight_transparent_sidebar = true
-g.tokyonight_transparent = true
-cmd[[colorscheme tokyonight]]
-
 local hl = function(thing, opts)
     vim.api.nvim_set_hl(0, thing, opts)
 end

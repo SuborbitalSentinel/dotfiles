@@ -11,7 +11,6 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use 'Hoffs/omnisharp-extended-lsp.nvim'
-    use 'folke/tokyonight.nvim'
     use 'godlygeek/tabular'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-calc'
@@ -30,6 +29,13 @@ return require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'tpope/vim-unimpaired'
     use 'tpope/vim-vinegar'
+
+    use {
+        'ellisonleao/gruvbox.nvim',
+        config = function()
+            vim.cmd[[colorscheme gruvbox]]
+        end
+    }
 
     use {
         'aymericbeaumet/vim-symlink',
@@ -96,7 +102,7 @@ return require('packer').startup(function(use)
         config = function()
             require('lualine').setup {
                 options  = {
-                    theme = 'tokyonight',
+                    theme = 'gruvbox',
                     section_separators = '',
                     components_separators = '',
                 },
