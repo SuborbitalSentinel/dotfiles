@@ -100,10 +100,14 @@ local servers = {
     -- }
 }
 
-for name, config in pairs(servers) do
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    config.capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local lsp_defaults = lspconfig.util.default_config
+lsp_defaults.capabilities = vim.tbl_deep_extend(
+    'force',
+    lsp_defaults.capabilities,
+    require('cmp_nvim_lsp').default_capabilities()
+)
 
+for name, config in pairs(servers) do
     config.on_attach = on_attach
     lspconfig[name].setup(config)
 end
