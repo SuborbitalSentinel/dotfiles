@@ -31,6 +31,13 @@ return require('packer').startup(function(use)
     use 'tpope/vim-vinegar'
 
     use {
+        'j-hui/fidget.nvim',
+        config = function()
+            require('fidget').setup{}
+        end
+    }
+
+    use {
         'ellisonleao/gruvbox.nvim',
         config = function()
             vim.cmd[[colorscheme gruvbox]]
