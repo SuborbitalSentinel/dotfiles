@@ -49,18 +49,6 @@ opt.wildignore = opt.wildignore + "tags,obj,packages,.hg,.git,.svn,*.pyc,*.spl,*
 opt.wildignore = opt.wildignore + "*.jpg,*.jpeg,*.png,*.gif,*.zip"
 opt.wildignore = opt.wildignore + "*/node_modules/*"
 
-local hl = function(thing, opts)
-    vim.api.nvim_set_hl(0, thing, opts)
-end
-
-hl("SignColumn", {
-    bg = "none"
-})
-
-hl("Normal", {
-    bg = "none"
-})
-
 if 1 == fn.executable("rg") then
    opt.grepprg = "rg --vimgrep --no-heading"
    opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
