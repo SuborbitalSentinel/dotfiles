@@ -70,7 +70,7 @@ local servers = {
             },
         }
     },
-    rls = {
+    rust_analyzer = {
         handlers = rounded_border_handlers,
         settings = {
             rust = {
@@ -82,22 +82,13 @@ local servers = {
     },
     omnisharp = {
         cmd = { "/home/kapiushon/.local/src/omnisharp-linux-x64/run" },
-        handlers = {
+        handlers = vim.tbl_extend('force', rounded_border_handlers, {
             ['textDocument/definition'] = require('omnisharp_extended').handler,
-            ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-            ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-        },
+        }),
     },
     jedi_language_server = {
         handlers = rounded_border_handlers
     },
-    -- tsserver = {
-    --     cmd = { "typescript-language-server", "--stdio" },
-    --     handlers = rounded_border_handlers,
-    --     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-    --     init_options = { hostInfo = "neovim" },
-    --     root_dir = require('lspconfig.util').root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")
-    -- }
 }
 
 local lsp_defaults = lspconfig.util.default_config
