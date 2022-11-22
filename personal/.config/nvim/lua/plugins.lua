@@ -33,7 +33,7 @@ return require('packer').startup(function(use)
     use {
         'j-hui/fidget.nvim',
         config = function()
-            require('fidget').setup{}
+            require('fidget').setup {}
         end
     }
 
@@ -43,7 +43,7 @@ return require('packer').startup(function(use)
             require('gruvbox').setup({
                 transparent_mode = true
             })
-            vim.cmd[[colorscheme gruvbox]]
+            vim.cmd [[colorscheme gruvbox]]
         end
     }
 
@@ -75,7 +75,7 @@ return require('packer').startup(function(use)
             cmp.setup {
                 snippet = {
                     expand = function(args)
-                        vim.fn["UltiSnips#Anon"](args.body)
+                        require('luasnip').lsp_expand(args.body)
                     end,
                 },
                 window = {
@@ -100,10 +100,8 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'SirVer/ultisnips',
-        config = function()
-            vim.g.UltiSnipsEditSplit = "vertical"
-        end
+        'L3MON4D3/LuaSnip',
+        tag = "v<CurrentMajor>.*"
     }
 
     use {
