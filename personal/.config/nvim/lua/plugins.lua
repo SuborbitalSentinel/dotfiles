@@ -29,6 +29,7 @@ return require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'tpope/vim-unimpaired'
     use 'tpope/vim-vinegar'
+    use 'L3MON4D3/LuaSnip'
 
     use {
         'j-hui/fidget.nvim',
@@ -97,11 +98,6 @@ return require('packer').startup(function(use)
                 }
             }
         end
-    }
-
-    use {
-        'L3MON4D3/LuaSnip',
-        tag = "v<CurrentMajor>.*"
     }
 
     use {
