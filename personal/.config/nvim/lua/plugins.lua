@@ -3,33 +3,46 @@ local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 local packer_bootstrap = nil
 
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+        install_path })
     vim.cmd [[packadd packer.nvim]]
 end
 
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
-    use 'Hoffs/omnisharp-extended-lsp.nvim'
-    use 'godlygeek/tabular'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-calc'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-nvim-lsp-signature-help'
-    use 'hrsh7th/cmp-nvim-lua'
-    use 'hrsh7th/cmp-path'
-    use 'kyazdani42/nvim-web-devicons'
-    use 'neovim/nvim-lspconfig'
-    use 'nvim-lua/popup.nvim'
-    use 'nvim-treesitter/playground'
-    use 'tpope/vim-commentary'
-    use 'tpope/vim-eunuch'
-    use 'tpope/vim-fugitive'
-    use 'tpope/vim-repeat'
-    use 'tpope/vim-surround'
-    use 'tpope/vim-unimpaired'
-    use 'tpope/vim-vinegar'
     use 'L3MON4D3/LuaSnip'
+    use 'godlygeek/tabular'
+    use 'kyazdani42/nvim-web-devicons'
+
+    use {
+        'tpope/vim-commentary',
+        'tpope/vim-eunuch',
+        'tpope/vim-fugitive',
+        'tpope/vim-repeat',
+        'tpope/vim-surround',
+        'tpope/vim-unimpaired',
+        'tpope/vim-vinegar',
+    }
+
+    use {
+        {
+            'williamboman/mason.nvim',
+            config = function()
+                require('mason').setup()
+            end
+        },
+        {
+            'williamboman/mason-lspconfig.nvim',
+            config = function()
+                require('mason-lspconfig').setup({
+                    ensure_installed = { "sumneko_lua", "rust_analyzer", "gopls", "omnisharp" }
+                })
+            end
+        },
+        'Hoffs/omnisharp-extended-lsp.nvim',
+        'neovim/nvim-lspconfig',
+    }
 
     use {
         'j-hui/fidget.nvim',
@@ -41,9 +54,7 @@ return require('packer').startup(function(use)
     use {
         'ellisonleao/gruvbox.nvim',
         config = function()
-            require('gruvbox').setup({
-                transparent_mode = true
-            })
+            require('gruvbox').setup({})
             vim.cmd [[colorscheme gruvbox]]
         end
     }
@@ -54,50 +65,45 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'jose-elias-alvarez/null-ls.nvim',
-        config = function()
-            local null_ls = require('null-ls')
-
-            local sources = {
-                null_ls.builtins.formatting.black
-            }
-
-            null_ls.setup({ sources = sources })
-        end
-    }
-
-    use {
-        'hrsh7th/nvim-cmp',
-        config = function()
-            vim.opt.completeopt = "menu,menuone,noselect"
-            local cmp = require('cmp')
-            local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-            cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
-            cmp.setup {
-                snippet = {
-                    expand = function(args)
-                        require('luasnip').lsp_expand(args.body)
-                    end,
-                },
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-y'] = cmp.mapping.confirm({ select = true })
-                }),
-                sources = {
-                    { name = 'nvim_lsp' },
-                    { name = 'nvim_lsp_signature_help' },
-                    { name = 'buffer' },
-                    { name = 'nvim_lua' },
-                    { name = 'path' },
-                    { name = 'calc' },
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-calc',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lsp-signature-help',
+        'hrsh7th/cmp-nvim-lua',
+        'hrsh7th/cmp-path',
+        {
+            'hrsh7th/nvim-cmp',
+            config = function()
+                vim.opt.completeopt = "menu,menuone,noselect"
+                local cmp = require('cmp')
+                local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+                cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
+                cmp.setup {
+                    snippet = {
+                        expand = function(args)
+                            require('luasnip').lsp_expand(args.body)
+                        end,
+                    },
+                    window = {
+                        completion = cmp.config.window.bordered(),
+                        documentation = cmp.config.window.bordered(),
+                    },
+                    mapping = cmp.mapping.preset.insert({
+                        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                        ['<C-y'] = cmp.mapping.confirm({ select = true })
+                    }),
+                    sources = {
+                        { name = 'nvim_lsp' },
+                        { name = 'nvim_lsp_signature_help' },
+                        { name = 'buffer' },
+                        { name = 'nvim_lua' },
+                        { name = 'path' },
+                        { name = 'calc' },
+                    }
                 }
-            }
-        end
+            end
+        },
     }
 
     use {
@@ -141,13 +147,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'natecraddock/workspaces.nvim',
-        config = function()
-            require('workspaces').setup()
-        end
-    }
-
-    use {
         'norcalli/nvim-colorizer.lua',
         config = function()
             vim.opt.termguicolors = true
@@ -156,15 +155,8 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'nvim-lua/plenary.nvim',
-        config = function()
-            require('plenary.filetype').add_file('gitattributes')
-        end
-    }
-
-    use {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+        'nvim-telescope/telescope-ui-select.nvim',
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     }
 
     use {
@@ -192,56 +184,25 @@ return require('packer').startup(function(use)
                 }
             }
             telescope.load_extension('fzf')
-            telescope.load_extension('workspaces')
+            telescope.load_extension('ui-select')
         end
     }
 
     use {
-        'nvim-treesitter/nvim-treesitter',
-        run = function()
-            vim.cmd [[TSUpdate]]
-        end,
-        config = function()
-            require('nvim-treesitter.configs').setup {
-                ensure_installed = {
-                    "bash",
-                    "c_sharp",
-                    "cmake",
-                    "comment",
-                    "cpp",
-                    "css",
-                    "fish",
-                    "go",
-                    "haskell",
-                    "html",
-                    "http",
-                    "javascript",
-                    "json5",
-                    "latex",
-                    "llvm",
-                    "lua",
-                    "make",
-                    "norg",
-                    "python",
-                    "regex",
-                    "rust",
-                    "solidity",
-                    "toml",
-                    "tsx",
-                    "typescript",
-                    "vim",
-                    "vue",
-                    "yaml",
-                    "zig",
-                },
-                highlight = {
-                    enable = true,
-                },
-                indent = {
-                    enable = true
+        'nvim-treesitter/playground',
+        {
+            'nvim-treesitter/nvim-treesitter',
+            run = function()
+                vim.cmd [[TSUpdate]]
+            end,
+            config = function()
+                require('nvim-treesitter.configs').setup {
+                    ensure_installed = "all",
+                    highlight = { enable = true, },
+                    indent = { enable = true }
                 }
-            }
-        end
+            end
+        },
     }
 
     use {
