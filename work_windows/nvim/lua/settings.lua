@@ -35,7 +35,6 @@ opt.laststatus = 3
 
 opt.autowrite = true
 opt.inccommand = "nosplit"
-opt.hlsearch = false
 opt.hidden = true
 opt.wrap = false
 opt.showmode = false
@@ -45,28 +44,11 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.fixendofline = false
 opt.splitbelow = true
-opt.termguicolors = true
 
 opt.wildmode = "list:longest"
 opt.wildignore = opt.wildignore + "tags,obj,packages,.hg,.git,.svn,*.pyc,*.spl,*.o,*.out,*.DS_Store,*.class,*.manifest,*~,#*#,%*"
 opt.wildignore = opt.wildignore + "*.jpg,*.jpeg,*.png,*.gif,*.zip"
 opt.wildignore = opt.wildignore + "*/node_modules/*"
-
-g.tokyonight_transparent_sidebar = true
-g.tokyonight_transparent = true
-cmd[[colorscheme tokyonight]]
-
-local hl = function(thing, opts)
-    vim.api.nvim_set_hl(0, thing, opts)
-end
-
-hl("SignColumn", {
-    bg = "none"
-})
-
-hl("Normal", {
-    bg = "none"
-})
 
 if 1 == fn.executable("rg") then
    opt.grepprg = "rg --vimgrep --no-heading"

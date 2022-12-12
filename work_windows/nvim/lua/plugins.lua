@@ -12,7 +12,6 @@ return require('packer').startup(function(use)
     use {'neovim/nvim-lspconfig'}
     use {'Hoffs/omnisharp-extended-lsp.nvim'}
     use { 'aymericbeaumet/vim-symlink', requires = { 'moll/vim-bbye' } }
-    use {'folke/tokyonight.nvim'}
     use {'godlygeek/tabular'}
     use {'kyazdani42/nvim-web-devicons'}
     use {'nvim-treesitter/playground'}
@@ -29,6 +28,31 @@ return require('packer').startup(function(use)
     use {'hrsh7th/cmp-nvim-lua'}
     use {'hrsh7th/cmp-path'}
     use {'hrsh7th/cmp-calc'}
+    use {'L3MON4D3/LuaSnip'}
+
+    use {
+        'j-hui/fidget.nvim',
+        config = function()
+            require('fidget').setup{}
+        end
+    }
+
+    use {
+        'klen/nvim-test',
+        config = function()
+            require('nvim-test').setup()
+        end
+    }
+
+    use {
+        'ellisonleao/gruvbox.nvim',
+        config = function()
+            require('gruvbox').setup({
+                contrast = "hard"
+            })
+            vim.cmd[[colorscheme gruvbox]]
+        end
+    }
 
     use {
         'hrsh7th/nvim-cmp',
@@ -40,7 +64,7 @@ return require('packer').startup(function(use)
             cmp.setup {
                 snippet = {
                     expand = function(args)
-                        vim.fn["UltiSnips#Anon"](args.body)
+                        require('luasnip').lsp_expand(args.body)
                     end,
                 },
                 window = {
@@ -65,19 +89,12 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'SirVer/ultisnips',
-        config = function()
-            vim.g.UltiSnipsEditSplit="vertical"
-        end
-    }
-
-    use {
         'hoob3rt/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true },
         config = function()
             require'lualine'.setup {
                 options = {
-                    theme = 'tokyonight',
+                    theme = 'gruvbox',
                     section_separators = '',
                     components_separators = '',
                 },
@@ -107,21 +124,30 @@ return require('packer').startup(function(use)
     use {
         'lewis6991/gitsigns.nvim',
         config = function()
-            local gitsigns = require'gitsigns'
-            gitsigns.setup()
+            require('gitsigns').setup{
+                on_attach = function(bufnr)
+                    local gs = package.loaded.gitsigns
 
-            local opts = { noremap=true, silent=true }
-            local set = vim.keymap.set
-            set('n', '[c', gitsigns.prev_hunk, opts)
-            set('n', ']c', gitsigns.next_hunk, opts)
+                    local function map(mode, l, r, opts)
+                        opts = opts or {}
+                        opts.buffer = bufnr
+                        vim.keymap.set(mode, l, r, opts)
+                    end
 
-            set('n', '<leader>gs', '<CMD>Git<CR>', opts)
-            set('n', '<leader>gl', '<CMD>silent! Gclog<CR><C-L>', opts)
-            set('n', '<leader>gb', '<CMD>Git blame<CR>', opts)
-            set('n', '<leader>gd', '<CMD>Gdiffsplit<CR>', opts)
-            set('n', '<leader>gr', '<CMD>Gread<CR>', opts)
-            set('n', '<leader>gw', '<CMD>Gwrite<CR>', opts)
-            set('n', '<leader>ge', '<CMD>Gedit<CR>', opts)
+                    map('n', ']c', function()
+                        if vim.wo.diff then return ']c' end
+                        vim.schedule(function() gs.next_hunk() end)
+                        return '<Ignore>'
+                    end, {expr=true})
+
+                    map('n', '[c', function()
+                        if vim.wo.diff then return '[c' end
+                        vim.schedule(function() gs.prev_hunk() end)
+                        return '<Ignore>'
+                    end, {expr=true})
+
+                end
+            }
         end
     }
 
@@ -135,6 +161,7 @@ return require('packer').startup(function(use)
     use {
         'norcalli/nvim-colorizer.lua',
         config = function()
+            vim.opt.termguicolors = true
             require'colorizer'.setup()
         end
     }
@@ -188,20 +215,6 @@ return require('packer').startup(function(use)
             }
             require'telescope'.load_extension('fzf')
             require'telescope'.load_extension('workspaces')
-
-            local opts = { noremap=true, silent=true }
-            local set = vim.keymap.set
-            set('n', '<c-f>', '<cmd>Telescope find_files<cr>', opts)
-            set('n', '<c-p>', '<cmd>Telescope git_files<cr>', opts)
-            set('n', '<c-b>', '<cmd>Telescope buffers<cr>', opts)
-            set('n', '<c-g>', '<cmd>Telescope live_grep<cr>', opts)
-
-            local function search_vimrc()
-                require("telescope.builtin").find_files({ prompt_title = "< NVIM Config >", cwd = "~/AppData/Local/nvim" })
-            end
-            set('n', "<leader>vrc", search_vimrc, opts)
-            set('n', '<leader>wp', '<cmd>Telescope workspaces<cr>', opts)
-            set('n', '<leader>ht', '<cmd>Telescope help_tags<cr>', opts)
         end
     }
 
@@ -221,7 +234,6 @@ return require('packer').startup(function(use)
                     "json5",
                     "lua",
                     "markdown",
-                    "norg",
                     "python",
                     "regex",
                     "todotxt",
