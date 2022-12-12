@@ -6,6 +6,7 @@ let g:neovide_cursor_trail_length=0.5
 
 require('plugins')
 require('settings')
+require('keymap')
 require('lsp_config')
 
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -37,17 +38,8 @@ vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     command = "setfiletype groovy"
 })
 
-local opts = { noremap=true, silent=true }
-local set = vim.keymap.set
-
-set('n', '<leader>tr', ':write | edit | TSBufEnable highlight<CR>', opts)
-set('v', '<leader>y', '"+y', opts)
-set('', '<leader>p', '"+p', opts)
-
-set('n', '<leader>ftw', ':e ++ff=dos | w<CR>', opts)
-set('n', '<leader>ftu', ':e ++ff=dos | setlocal ff=unix | w<CR>', opts)
-set('n', '<leader>gp', '<CMD>silent %!prettier --stdin-filepath %<CR>', opts)
-
-if 1 == vim.fn.has('win32') and 1 == vim.fn.has('nvim') then
-    set('', '<C-z>', '<nop>', opts)
-end
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+    group = vim.api.nvim_create_augroup("DockerfileAuGroup", { clear = true }),
+    pattern = {"*.Dockerfile"},
+    command = ""
+})

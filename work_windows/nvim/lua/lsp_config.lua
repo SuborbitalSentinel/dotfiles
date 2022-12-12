@@ -32,7 +32,6 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
--- cmd = { "omnisharp.exe", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
 local servers = {
     omnisharp = {
         cmd = { "omnisharp.exe" },
@@ -41,9 +40,6 @@ local servers = {
            ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = "rounded"}),
            ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = "rounded"}),
         },
-    },
-    powershell_es = {
-        bundle_path = 'c:/w/PowerShellEditorServices',
     },
     gopls = {
         cmd = { 'gopls', 'serve' },
@@ -66,13 +62,16 @@ local servers = {
            ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = "rounded"}),
         },
     },
-    jsonls = {},
 }
 
-for name, config in pairs(servers) do
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    config.capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local lsp_defaults = lspconfig.util.default_config
+lsp_defaults.capabilities = vim.tbl_deep_extend(
+    'force',
+    lsp_defaults.capabilities,
+    require('cmp_nvim_lsp').default_capabilities()
+)
 
+for name, config in pairs(servers) do
     config.on_attach = on_attach
     config.flags = { debounce_text_changes = 150 }
     lspconfig[name].setup(config)
