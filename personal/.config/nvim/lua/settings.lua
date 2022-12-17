@@ -2,9 +2,9 @@ local cmd = vim.cmd
 local g = vim.g
 local opt = vim.opt
 
-g.loaded_perl_provider=0
-g.loaded_python_provider=0
-g.loaded_ruby_provider=0
+g.loaded_perl_provider = 0
+g.loaded_python_provider = 0
+g.loaded_ruby_provider = 0
 
 g.mapleader = ","
 
@@ -37,4 +37,10 @@ opt.splitbelow = true
 opt.laststatus = 3
 opt.foldcolumn = "auto"
 
-cmd('packadd cfilter')
+opt.termguicolors = true
+opt.completeopt = "menu,menuone,noselect"
+
+require('gruvbox').setup()
+cmd([[colorscheme gruvbox]])
+
+cmd([[packadd cfilter]])
