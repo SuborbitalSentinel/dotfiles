@@ -3,11 +3,20 @@ local lspconfig = require('lspconfig')
 local on_attach = function(client, bufnr)
     local opts = { noremap = true, silent = true, buffer = bufnr }
 
+    local null_ls_formatters = {
+        ['omnisharp'] = true
+    }
+
+    if null_ls_formatters[client.name] then
+        client.server_capabilities.documentFormattingProvider = false
+    end
+
     if client.name == 'omnisharp' then
         vim.keymap.set('n', 'gd', '<Cmd>lua require("omnisharp_extended").lsp_definitions()<CR>', opts)
     else
         vim.keymap.set('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     end
+
     vim.keymap.set('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     vim.keymap.set('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -94,6 +103,14 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 require('mason').setup()
 require('mason-lspconfig').setup({ ensure_installed = { "sumneko_lua", "rust_analyzer", "gopls", "omnisharp" } })
+
+local null_ls = require("null-ls")
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.csharpier
+    }
+})
+
 for name, config in pairs(servers) do
     config.on_attach = on_attach
     config.capabilities = capabilities
