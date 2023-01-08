@@ -98,9 +98,6 @@ local servers = {
     },
 }
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
 require('mason').setup()
 require('mason-lspconfig').setup({ ensure_installed = { "sumneko_lua", "rust_analyzer", "gopls", "omnisharp" } })
 
@@ -111,6 +108,8 @@ null_ls.setup({
     }
 })
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 for name, config in pairs(servers) do
     config.on_attach = on_attach
     config.capabilities = capabilities
