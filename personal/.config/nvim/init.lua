@@ -1,6 +1,6 @@
 require('plugins')
 require('settings')
-require('keybinds')
+require('keymaps')
 require('lsp_config')
 
 vim.api.nvim_create_autocmd("BufReadPost", {
