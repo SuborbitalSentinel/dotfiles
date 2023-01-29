@@ -9,6 +9,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require('packer').startup(function(use)
+    use "/home/kapiushon/Projects/plantuml.nvim"
     use {
         'wbthomason/packer.nvim',
 
