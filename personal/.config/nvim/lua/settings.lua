@@ -40,7 +40,7 @@ opt.foldcolumn = "auto"
 opt.termguicolors = true
 opt.completeopt = "menu,menuone,noselect"
 
-require('gruvbox').setup()
-cmd([[colorscheme gruvbox]])
+vim.g.nord_borders = true
+require('nord').set()
 
 cmd([[packadd cfilter]])

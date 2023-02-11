@@ -139,6 +139,11 @@ _G.packer_plugins = {
     path = "/home/kapiushon/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  ["nord.nvim"] = {
+    loaded = true,
+    path = "/home/kapiushon/.local/share/nvim/site/pack/packer/start/nord.nvim",
+    url = "https://github.com/shaunsingh/nord.nvim"
+  },
   ["null-ls.nvim"] = {
     loaded = true,
     path = "/home/kapiushon/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
