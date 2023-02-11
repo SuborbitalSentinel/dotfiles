@@ -16,6 +16,7 @@ return require('packer').startup(function(use)
         'Hoffs/omnisharp-extended-lsp.nvim',
         'L3MON4D3/LuaSnip',
         'ellisonleao/gruvbox.nvim',
+        'shaunsingh/nord.nvim',
         'godlygeek/tabular',
         'hoob3rt/lualine.nvim',
         'hrsh7th/cmp-buffer',
