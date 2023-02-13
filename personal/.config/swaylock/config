@@ -1,0 +1,15 @@
+ignore-empty-password
+disable-caps-lock-text
+image=/home/kapiushon/.local/share/backgrounds/master-sword.jpg
+font=Calvin and Hobbes
+
+scaling=fill
+indicator
+clock
+datestr=%A, %d %B
+timestr=%I:%M %p
+indicator-x-position=135
+indicator-y-position=135
+indicator-radius=125
+font-size=55
+text-color=FFFFFF
