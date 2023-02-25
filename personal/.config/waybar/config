@@ -3,6 +3,7 @@
     "position": "bottom", 
         "height": 40,
         "modules-left": ["sway/workspaces"],
+        "modules-center": ["tray"],
         "modules-right": ["pulseaudio", "network", "battery", "custom/date", "clock", "custom/power"],
         "sway/workspaces": {
             "disable-scroll": true,
@@ -31,6 +32,10 @@
         "custom/power": {
             "format": "󰐥",
             "on-click": "/home/kapiushon/.local/bin/waybar-power.sh"
+        },
+        "tray": {
+            "icon-size": 20,
+            "spacing": 10
         },
         "clock": {
             "format": "󰅐 {:%H:%M}",
