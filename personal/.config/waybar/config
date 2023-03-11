@@ -56,7 +56,7 @@
         },
         "network": {
             "format-wifi": "  {essid}",
-            "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+            "format-ethernet": "{ifname}: {ipaddr} ",
             "format-linked": "{ifname} (No IP) ",
             "format-disconnected": "󰤮 Disconnected",
             "format-alt": "{ifname}: {ipaddr}/{cidr}"
