@@ -27,7 +27,7 @@ telescope.load_extension('ui-select')
 local function search_vimrc()
     require("telescope.builtin").find_files({
         prompt_title = "< NVIM Config >",
-        cwd = "~/.dotfiles/personal/.config/nvim",
+        cwd = "~/.dotfiles/nvim/.config/nvim/",
     })
 end
 
