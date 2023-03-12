@@ -192,7 +192,7 @@ _G.packer_plugins = {
   ["plantuml.nvim"] = {
     loaded = true,
     path = "/home/kapiushon/.local/share/nvim/site/pack/packer/start/plantuml.nvim",
-    url = "/home/kapiushon/Projects/plantuml.nvim"
+    url = "https://github.com//home/kapiushon/Projects/plantuml.nvim"
   },
   playground = {
     loaded = true,

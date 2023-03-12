@@ -45,7 +45,7 @@ table.insert(lua_runtime_path, "lua/?.lua")
 table.insert(lua_runtime_path, "lua/?/init.lua")
 
 local servers = {
-    sumneko_lua = {
+    lua_ls = {
         handlers = rounded_border_handlers,
         settings = {
             Lua = {
@@ -100,7 +100,7 @@ local servers = {
 }
 
 require('mason').setup()
-require('mason-lspconfig').setup({ ensure_installed = { "sumneko_lua", "rust_analyzer", "gopls", "omnisharp" } })
+require('mason-lspconfig').setup({ ensure_installed = { "lua_ls", "rust_analyzer", "gopls", "omnisharp" } })
 
 local null_ls = require("null-ls")
 null_ls.setup({
