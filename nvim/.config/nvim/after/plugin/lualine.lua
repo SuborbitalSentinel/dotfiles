@@ -1,6 +1,6 @@
 require('lualine').setup {
     options  = {
-        theme = 'nord',
+        theme = 'auto',
         section_separators = '',
         components_separators = '',
     },
@@ -21,6 +21,11 @@ require('lualine').setup {
     tabline  = {
         lualine_a = { 'filename' },
         lualine_x = { 'diff' },
-        lualine_y = { 'tabs' },
+        lualine_y = {
+            {
+                'tabs',
+                mode = 1,
+            }
+        },
     }
 }

@@ -9,13 +9,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require('packer').startup(function(use)
-    use "/home/kapiushon/Projects/plantuml.nvim"
     use {
         'wbthomason/packer.nvim',
 
         'Hoffs/omnisharp-extended-lsp.nvim',
         'L3MON4D3/LuaSnip',
-        'ellisonleao/gruvbox.nvim',
         'shaunsingh/nord.nvim',
         'godlygeek/tabular',
         'hoob3rt/lualine.nvim',
@@ -45,7 +43,15 @@ return require('packer').startup(function(use)
         'williamboman/mason-lspconfig.nvim',
         'williamboman/mason.nvim',
         'windwp/nvim-autopairs',
-
+        {
+            'neanias/everforest-nvim',
+            config = function()
+                require("everforest").setup({
+                    background = "hard",
+                    italics = true
+                })
+            end
+        },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 },
         { 'nvim-telescope/telescope.nvim', tag = '0.1.0', },
         { 'nvim-treesitter/nvim-treesitter', run = function() vim.cmd [[TSUpdate]] end },

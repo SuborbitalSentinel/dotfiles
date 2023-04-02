@@ -97,6 +97,9 @@ local servers = {
     jedi_language_server = {
         handlers = rounded_border_handlers
     },
+    zls = {
+        handlers = rounded_border_handlers
+    }
 }
 
 require('mason').setup()
