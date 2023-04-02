@@ -40,7 +40,6 @@ opt.foldcolumn = "auto"
 opt.termguicolors = true
 opt.completeopt = "menu,menuone,noselect"
 
-vim.g.nord_borders = true
-require('nord').set()
+require("everforest").load()
 
 cmd([[packadd cfilter]])
