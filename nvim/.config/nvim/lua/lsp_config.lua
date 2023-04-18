@@ -88,10 +88,9 @@ local servers = {
             }
         }
     },
-    omnisharp = {
-        cmd = { "omnisharp" },
+    csharp_ls = {
         handlers = vim.tbl_extend('force', rounded_border_handlers, {
-            ['textDocument/definition'] = require('omnisharp_extended').handler,
+            ['textDocument/definition'] = require('csharpls_extended').handler,
         }),
     },
     jedi_language_server = {
@@ -99,16 +98,20 @@ local servers = {
     },
     zls = {
         handlers = rounded_border_handlers
+    },
+    clangd = {
+        handlers = rounded_border_handlers
     }
 }
 
 require('mason').setup()
-require('mason-lspconfig').setup({ ensure_installed = { "lua_ls", "rust_analyzer", "gopls", "omnisharp" } })
+require('mason-lspconfig').setup({ ensure_installed = { "lua_ls", "rust_analyzer", "gopls", "csharp_ls" } })
 
 local null_ls = require("null-ls")
 null_ls.setup({
     sources = {
-        null_ls.builtins.formatting.csharpier
+        null_ls.builtins.formatting.csharpier,
+        null_ls.builtins.formatting.clang_format
     }
 })
 

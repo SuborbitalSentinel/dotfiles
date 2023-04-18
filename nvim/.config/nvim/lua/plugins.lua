@@ -12,7 +12,7 @@ return require('packer').startup(function(use)
     use {
         'wbthomason/packer.nvim',
 
-        'Hoffs/omnisharp-extended-lsp.nvim',
+        'Decodetalkers/csharpls-extended-lsp.nvim',
         'L3MON4D3/LuaSnip',
         'shaunsingh/nord.nvim',
         'godlygeek/tabular',

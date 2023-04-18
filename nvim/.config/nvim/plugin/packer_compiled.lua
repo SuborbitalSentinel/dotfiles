@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/home/kapiushon/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
+  ["csharpls-extended-lsp.nvim"] = {
+    loaded = true,
+    path = "/home/kapiushon/.local/share/nvim/site/pack/packer/start/csharpls-extended-lsp.nvim",
+    url = "https://github.com/Decodetalkers/csharpls-extended-lsp.nvim"
+  },
   ["everforest-nvim"] = {
     config = { "\27LJ\2\nw\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\3\15background\thard\fitalics\2!transparent_background_level\3\2\nsetup\15everforest\frequire\0" },
     loaded = true,
@@ -179,11 +184,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kapiushon/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
-  },
-  ["omnisharp-extended-lsp.nvim"] = {
-    loaded = true,
-    path = "/home/kapiushon/.local/share/nvim/site/pack/packer/start/omnisharp-extended-lsp.nvim",
-    url = "https://github.com/Hoffs/omnisharp-extended-lsp.nvim"
   },
   ["packer.nvim"] = {
     loaded = true,
