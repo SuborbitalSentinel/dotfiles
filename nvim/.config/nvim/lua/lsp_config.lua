@@ -4,7 +4,8 @@ local on_attach = function(client, bufnr)
     local opts = { noremap = true, silent = true, buffer = bufnr }
 
     local null_ls_formatters = {
-        ['omnisharp'] = true
+        ['omnisharp'] = true,
+        ['csharp_ls'] = true
     }
 
     if null_ls_formatters[client.name] then
@@ -12,7 +13,7 @@ local on_attach = function(client, bufnr)
     end
 
     if client.name == 'omnisharp' then
-        vim.keymap.set('n', 'gd', '<Cmd>lua require("omnisharp_extended").lsp_definitions()<CR>', opts)
+        vim.keymap.set('n', 'gd', '<Cmd>lua require("csharpls_extended").lsp_definitions()<CR>', opts)
     else
         vim.keymap.set('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     end
@@ -105,7 +106,14 @@ local servers = {
 }
 
 require('mason').setup()
-require('mason-lspconfig').setup({ ensure_installed = { "lua_ls", "rust_analyzer", "gopls", "csharp_ls" } })
+require('mason-lspconfig').setup({
+    ensure_installed = {
+        "lua_ls",
+        "rust_analyzer",
+        "gopls",
+        "csharp_ls"
+    }
+})
 
 local null_ls = require("null-ls")
 null_ls.setup({
