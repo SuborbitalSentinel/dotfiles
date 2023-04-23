@@ -33,7 +33,6 @@ return require('packer').startup(function(use)
         'nvim-lua/plenary.nvim',
         'nvim-telescope/telescope-ui-select.nvim',
         'nvim-treesitter/playground',
-        'tpope/vim-commentary',
         'tpope/vim-eunuch',
         'tpope/vim-fugitive',
         'tpope/vim-repeat',
@@ -43,6 +42,12 @@ return require('packer').startup(function(use)
         'williamboman/mason-lspconfig.nvim',
         'williamboman/mason.nvim',
         'windwp/nvim-autopairs',
+        {
+            'numToStr/Comment.nvim',
+            config = function()
+                require('Comment').setup()
+            end
+        },
         {
             'neanias/everforest-nvim',
             config = function()
