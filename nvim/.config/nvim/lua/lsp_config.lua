@@ -3,21 +3,10 @@ local lspconfig = require('lspconfig')
 local on_attach = function(client, bufnr)
     local opts = { noremap = true, silent = true, buffer = bufnr }
 
-    local null_ls_formatters = {
-        ['omnisharp'] = true,
-        ['csharp_ls'] = true
-    }
+    -- disable formatting by default...use null_ls to set up instead
+    client.server_capabilities.documentFormattingProvider = false
 
-    if null_ls_formatters[client.name] then
-        client.server_capabilities.documentFormattingProvider = false
-    end
-
-    if client.name == 'omnisharp' then
-        vim.keymap.set('n', 'gd', '<Cmd>lua require("csharpls_extended").lsp_definitions()<CR>', opts)
-    else
-        vim.keymap.set('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    end
-
+    vim.keymap.set('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     vim.keymap.set('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     vim.keymap.set('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -33,7 +22,6 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
     vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     vim.keymap.set('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format { async = true }<CR>", opts)
 end
 
 local rounded_border_handlers = {
@@ -115,16 +103,23 @@ require('mason-lspconfig').setup({
     }
 })
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
 local null_ls = require("null-ls")
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.csharpier,
-        null_ls.builtins.formatting.clang_format
-    }
+        null_ls.builtins.formatting.clang_format,
+        null_ls.builtins.formatting.stylua
+    },
+    capabilities = capabilities,
+    on_attach = function(_, bufnr)
+        local opts = { noremap = true, silent = true, buffer = bufnr }
+        vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format { async = true }<CR>", opts)
+    end
 })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 for name, config in pairs(servers) do
     config.on_attach = on_attach
     config.capabilities = capabilities
