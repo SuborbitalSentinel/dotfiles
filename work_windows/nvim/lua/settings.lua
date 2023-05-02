@@ -14,14 +14,14 @@ g.mapleader = ","
 o.tags = "./.git/tags;," .. o.tags
 
 vim.opt.listchars = {
-    eol = '↲',
-    tab = '▸ ',
-    trail = '·',
+    eol = "↲",
+    tab = "▸ ",
+    trail = "·",
 }
 opt.list = true
 
 opt.sidescrolloff = 30
-opt.colorcolumn = "160"
+opt.colorcolumn = "150"
 opt.updatetime = 100
 opt.ttimeoutlen = 25
 opt.showtabline = 2
@@ -45,7 +45,11 @@ opt.foldcolumn = "auto"
 opt.termguicolors = true
 opt.completeopt = "menu,menuone,noselect"
 
-require('gruvbox').setup()
-cmd([[colorscheme gruvbox]])
+require("rose-pine").setup({
+    variant = "moon",
+    dark_variant = "moon",
+})
+
+vim.cmd([[ colorscheme rose-pine ]])
 
 cmd([[packadd cfilter]])
