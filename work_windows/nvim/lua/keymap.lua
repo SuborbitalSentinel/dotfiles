@@ -15,6 +15,8 @@ vim.keymap.set('n', ']q', '<CMD>:cnext<CR>zz', opts)
 vim.keymap.set('n', ']Q', '<CMD>:clast<CR>zz', opts)
 vim.keymap.set('n', 'n', 'nzz', opts)
 vim.keymap.set('n', 'N', 'Nzz', opts)
+vim.keymap.set('n', '<c-o>', '<c-o>zz', opts)
+vim.keymap.set('n', '<c-i>', '<c-i>zz', opts)
 
 vim.keymap.set('n', '<leader>tr', ':write | edit | TSBufEnable highlight<CR>', opts)
 vim.keymap.set('v', '<leader>y', '"+y', opts)

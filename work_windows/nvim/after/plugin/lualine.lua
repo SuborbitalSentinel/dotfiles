@@ -1,12 +1,11 @@
 require('lualine').setup {
     options  = {
-        theme = 'gruvbox',
-        section_separators = '',
-        components_separators = '',
+        theme = 'rose-pine',
+        globalstatus = true,
     },
     sections = {
-        lualine_a = { 'mode' },
-        lualine_b = { 'branch' },
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
         lualine_c = {
             {
                 'filename',
@@ -14,13 +13,22 @@ require('lualine').setup {
                 shortening_target = 70
             }
         },
-        lualine_x = { 'diagnostics' },
-        lualine_y = { 'encoding', 'fileformat', 'filetype' },
-        lualine_z = { 'location' }
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
     },
-    tabline  = {
-        lualine_a = { 'filename' },
-        lualine_x = { 'diff' },
-        lualine_y = { 'tabs' },
+    tabline = {
+        lualine_a = {{
+            'tabs',
+            mode = 1,
+            tabs_color = {
+                active = 'lualine_a_normal',
+                inactive = 'lualine_c_inactive'
+            },
+        }}
+    },
+    extensions = {
+        'quickfix',
+        'fugitive'
     }
 }
