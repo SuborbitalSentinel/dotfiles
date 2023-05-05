@@ -58,6 +58,7 @@ return require('packer').startup(function(use)
                 })
             end
         },
+        { "rose-pine/neovim", as = "rose-pine" },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 },
         { 'nvim-telescope/telescope.nvim', tag = '0.1.0', },
         { 'nvim-treesitter/nvim-treesitter', run = function() vim.cmd [[TSUpdate]] end },

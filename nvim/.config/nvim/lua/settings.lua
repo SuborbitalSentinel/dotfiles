@@ -40,6 +40,10 @@ opt.foldcolumn = "auto"
 opt.termguicolors = true
 opt.completeopt = "menu,menuone,noselect"
 
-require("everforest").load()
+require("rose-pine").setup({
+    variant = "moon",
+    dark_variant = "moon",
+})
+vim.cmd([[ colorscheme rose-pine ]])
 
 cmd([[packadd cfilter]])
