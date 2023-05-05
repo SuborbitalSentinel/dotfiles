@@ -99,7 +99,8 @@ require('mason-lspconfig').setup({
         "lua_ls",
         "rust_analyzer",
         "gopls",
-        "csharp_ls"
+        "csharp_ls",
+        "zls"
     }
 })
 
