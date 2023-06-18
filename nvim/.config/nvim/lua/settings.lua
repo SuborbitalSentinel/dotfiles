@@ -9,9 +9,9 @@ g.loaded_ruby_provider = 0
 g.mapleader = ","
 
 opt.listchars = {
-    eol = '↲',
-    tab = '▸ ',
-    trail = '·',
+	eol = '↲',
+	tab = '▸ ',
+	trail = '·',
 }
 opt.list = true
 
@@ -23,7 +23,7 @@ opt.showtabline = 2
 opt.shiftwidth = 4
 opt.tabstop = 4
 opt.softtabstop = 4
-opt.expandtab = true
+opt.expandtab = false
 
 opt.hlsearch = false
 opt.wrap = false
@@ -41,8 +41,8 @@ opt.termguicolors = true
 opt.completeopt = "menu,menuone,noselect"
 
 require("rose-pine").setup({
-    variant = "moon",
-    dark_variant = "moon",
+	variant = "moon",
+	dark_variant = "moon",
 })
 vim.cmd([[ colorscheme rose-pine ]])
 

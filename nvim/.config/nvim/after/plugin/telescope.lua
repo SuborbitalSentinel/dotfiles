@@ -4,31 +4,31 @@ local actions = require('telescope.actions')
 local telescope = require('telescope')
 local builtin = require('telescope.builtin')
 telescope.setup {
-    defaults = {
-        layout_strategy = 'vertical',
-        path_display = { "truncate" },
-        mappings = {
-            i = {
-                ["<C-q>"] = actions.send_selected_to_qflist,
-                ["<C-w>"] = actions.send_to_qflist,
-                ["<C-d>"] = actions.delete_buffer,
-            },
-            n = {
-                ["<C-q>"] = actions.send_selected_to_qflist,
-                ["<C-w>"] = actions.send_to_qflist,
-                ["<C-d>"] = actions.delete_buffer,
-            },
-        },
-    }
+	defaults = {
+		layout_strategy = 'vertical',
+		path_display = { "truncate" },
+		mappings = {
+			i = {
+				["<C-q>"] = actions.send_selected_to_qflist,
+				["<C-w>"] = actions.send_to_qflist,
+				["<C-d>"] = actions.delete_buffer,
+			},
+			n = {
+				["<C-q>"] = actions.send_selected_to_qflist,
+				["<C-w>"] = actions.send_to_qflist,
+				["<C-d>"] = actions.delete_buffer,
+			},
+		},
+	}
 }
-telescope.load_extension('fzf')
+telescope.load_extension("zf-native")
 telescope.load_extension('ui-select')
 
 local function search_vimrc()
-    require("telescope.builtin").find_files({
-        prompt_title = "< NVIM Config >",
-        cwd = "~/.dotfiles/nvim/.config/nvim/",
-    })
+	require("telescope.builtin").find_files({
+		prompt_title = "< NVIM Config >",
+		cwd = "~/.dotfiles/nvim/.config/nvim/",
+	})
 end
 
 vim.keymap.set('n', '<c-f>', builtin.find_files, opts)
