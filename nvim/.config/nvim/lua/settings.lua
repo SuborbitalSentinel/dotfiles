@@ -13,7 +13,7 @@ opt.listchars = {
 	tab = '▸ ',
 	trail = '·',
 }
-opt.list = true
+opt.list = false
 
 opt.sidescrolloff = 30
 opt.colorcolumn = "160"
