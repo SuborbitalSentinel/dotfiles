@@ -23,7 +23,6 @@ return require("packer").startup(function(use)
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-path",
         "hrsh7th/nvim-cmp",
-        "j-hui/fidget.nvim",
         "jose-elias-alvarez/null-ls.nvim",
         "kyazdani42/nvim-web-devicons",
         "lewis6991/gitsigns.nvim",
@@ -40,7 +39,10 @@ return require("packer").startup(function(use)
         "tpope/vim-vinegar",
         "williamboman/mason-lspconfig.nvim",
         "williamboman/mason.nvim",
+        "natecraddock/telescope-zf-native.nvim",
         "windwp/nvim-autopairs",
+        { "codota/tabnine-nvim", run = "pwsh.exe -file .\\dl_binaries.ps1" },
+        { "j-hui/fidget.nvim", tag = "legacy" },
         {
             "numToStr/Comment.nvim",
             config = function()
@@ -58,7 +60,6 @@ return require("packer").startup(function(use)
             end,
         },
         { "rose-pine/neovim", as = "rose-pine" },
-        { "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 },
         { "nvim-telescope/telescope.nvim", tag = "0.1.0" },
         {
             "nvim-treesitter/nvim-treesitter",
@@ -67,6 +68,14 @@ return require("packer").startup(function(use)
             end,
         },
         { "aymericbeaumet/vim-symlink", requires = { "moll/vim-bbye" } },
+        -- {
+        --     "nvim-neotest/neotest",
+        --     requires = {
+        --         "nvim-lua/plenary.nvim",
+        --         "nvim-treesitter/nvim-treesitter",
+        --         "Issafalcon/neotest-dotnet",
+        --     },
+        -- },
     })
 
     if packer_bootstrap ~= nil then

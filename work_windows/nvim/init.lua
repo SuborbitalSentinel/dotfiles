@@ -15,16 +15,6 @@ require('settings')
 require('keymap')
 require('lsp_config')
 
--- WIP: a keybind to remote the current item from the quickfix list
--- vim.api.nvim_create_autocmd("FileType", {
---     group = vim.api.nvim_create_augroup("quickfixAuGroup", { clear = true }),
---     pattern = "qf",
---     callback = function()
---         local opts = { noremap = true, silent = true, buffer = true }
---         vim.keymap.set('n', 'X', "<cmd>exe 'Cfilter! ' .. matchstr(getline('.'), '.{-}ze<bar>')<CR>", opts)
---     end
--- })
-
 vim.api.nvim_create_autocmd("BufReadPost", {
     group = vim.api.nvim_create_augroup("fugitiveAuGroup", { clear = true }),
     pattern = { "fugitive://*", "term://*" },

@@ -10,9 +10,10 @@ local on_attach = function(client, bufnr)
         -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2483#issuecomment-1492605642
         -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2483
         -- https://github.com/OmniSharp/omnisharp-roslyn/pull/2520
-        client.server_capabilities.semanticTokensProvider = nil
+        -- client.server_capabilities.semanticTokensProvider = nil
     end
 
+    vim.keymap.set("n", "<leader>bo", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
     vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
     vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
@@ -36,85 +37,6 @@ local rounded_border_handlers = {
     ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 }
 
-local lua_runtime_path = vim.split(package.path, ";")
-table.insert(lua_runtime_path, "lua/?.lua")
-table.insert(lua_runtime_path, "lua/?/init.lua")
-
-local servers = {
-    lua_ls = {
-        handlers = rounded_border_handlers,
-        settings = {
-            Lua = {
-                runtime = {
-                    version = "LuaJIT",
-                    path = lua_runtime_path,
-                },
-                diagnostics = {
-                    globals = { "vim" },
-                },
-                workspace = {
-                    library = vim.api.nvim_get_runtime_file("", true),
-                    checkThirdParty = false,
-                },
-                telemetry = {
-                    enable = false,
-                },
-            },
-        },
-    },
-    gopls = {
-        cmd = { "gopls", "serve" },
-        handlers = rounded_border_handlers,
-        settings = {
-            gopls = {
-                analyses = {
-                    unusedparams = true,
-                },
-                staticcheck = true,
-            },
-        },
-    },
-    rust_analyzer = {
-        handlers = rounded_border_handlers,
-        settings = {
-            rust = {
-                unstable_features = true,
-                build_on_save = false,
-                all_features = true,
-            },
-        },
-    },
-    omnisharp = {
-        root_dir = function(fname)
-            local primary = lspconfig.util.root_pattern("*.sln")(fname)
-            local fallback = lspconfig.util.root_pattern("*.csproj")(fname)
-            return primary or fallback
-        end,
-        handlers = vim.tbl_extend('force', rounded_border_handlers, {
-            ['textDocument/definition'] = require('omnisharp_extended').handler,
-        }),
-    },
-    -- csharp_ls = {
-    --     root_dir = function(fname)
-    --         local primary = lspconfig.util.root_pattern("*.sln")(fname)
-    --         local fallback = lspconfig.util.root_pattern("*.csproj")(fname)
-    --         return primary or fallback
-    --     end,
-    --     handlers = vim.tbl_extend("force", rounded_border_handlers, {
-    --         ["textDocument/definition"] = require("csharpls_extended").handler,
-    --     }),
-    -- },
-    jedi_language_server = {
-        handlers = rounded_border_handlers,
-    },
-    jsonls = {
-        handlers = rounded_border_handlers,
-    },
-}
-
-require("mason").setup()
-require("mason-lspconfig").setup({ ensure_installed = { "lua_ls" } })
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
@@ -125,6 +47,7 @@ null_ls.setup({
         null_ls.builtins.formatting.prettier,
         null_ls.builtins.formatting.sqlfmt,
         null_ls.builtins.formatting.stylua,
+        null_ls.builtins.formatting.black,
     },
     capabilities = capabilities,
     on_attach = function(_, bufnr)
@@ -133,8 +56,72 @@ null_ls.setup({
     end,
 })
 
-for name, config in pairs(servers) do
-    config.on_attach = on_attach
-    config.capabilities = capabilities
-    lspconfig[name].setup(config)
-end
+require("mason").setup()
+require("mason-lspconfig").setup({ ensure_installed = { "lua_ls" } })
+require("mason-lspconfig").setup_handlers({
+    function(server_name)
+        require("lspconfig")[server_name].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            handlers = rounded_border_handlers,
+        })
+    end,
+    ["omnisharp"] = function()
+        require("lspconfig")["omnisharp"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            root_dir = function(fname)
+                local primary = lspconfig.util.root_pattern("*.sln")(fname)
+                local fallback = lspconfig.util.root_pattern("*.csproj")(fname)
+                return primary or fallback
+            end,
+            handlers = vim.tbl_extend("force", rounded_border_handlers, {
+                ["textDocument/definition"] = require("omnisharp_extended").handler,
+            }),
+        })
+    end,
+    ["csharp_ls"] = function()
+        require("lspconfig")["csharp_ls"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            root_dir = function(fname)
+                local primary = lspconfig.util.root_pattern("*.sln")(fname)
+                local fallback = lspconfig.util.root_pattern("*.csproj")(fname)
+                return primary or fallback
+            end,
+            handlers = vim.tbl_extend("force", rounded_border_handlers, {
+                ["textDocument/definition"] = require("csharpls_extended").handler,
+            }),
+        })
+    end,
+    ["lua_ls"] = function()
+        local lua_runtime_path = vim.split(package.path, ";")
+        table.insert(lua_runtime_path, "lua/?.lua")
+        table.insert(lua_runtime_path, "lua/?/init.lua")
+
+        require("lspconfig")["lua_ls"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+
+            handlers = rounded_border_handlers,
+            settings = {
+                Lua = {
+                    runtime = {
+                        version = "LuaJIT",
+                        path = lua_runtime_path,
+                    },
+                    diagnostics = {
+                        globals = { "vim" },
+                    },
+                    workspace = {
+                        library = vim.api.nvim_get_runtime_file("", true),
+                        checkThirdParty = false,
+                    },
+                    telemetry = {
+                        enable = false,
+                    },
+                },
+            },
+        })
+    end,
+})

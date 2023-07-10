@@ -21,7 +21,7 @@ telescope.setup {
         },
     }
 }
-telescope.load_extension('fzf')
+telescope.load_extension('zf-native')
 telescope.load_extension('ui-select')
 
 local function search_vimrc()
@@ -31,9 +31,17 @@ local function search_vimrc()
     })
 end
 
+local function search_workflows()
+    builtin.live_grep({
+        prompt_title = "< GitHub Workflow Search >",
+        cwd = "/git/JEDIv2/.github"
+    })
+end
+
 vim.keymap.set('n', '<c-f>', builtin.find_files, opts)
 vim.keymap.set('n', '<c-p>', builtin.git_files, opts)
 vim.keymap.set('n', '<c-b>', builtin.buffers, opts)
 vim.keymap.set('n', '<c-g>', builtin.live_grep, opts)
+vim.keymap.set('n', '<leader>gw', search_workflows, opts)
 vim.keymap.set('n', '<leader>ht', builtin.help_tags, opts)
 vim.keymap.set('n', "<leader>vrc", search_vimrc, opts)
