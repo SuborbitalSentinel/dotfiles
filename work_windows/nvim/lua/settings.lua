@@ -22,7 +22,6 @@ opt.list = true
 
 opt.sidescrolloff = 30
 opt.colorcolumn = "150"
-opt.updatetime = 100
 opt.ttimeoutlen = 25
 opt.showtabline = 2
 opt.shiftwidth = 4
