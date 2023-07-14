@@ -40,6 +40,7 @@ return require("packer").startup(function(use)
 		"williamboman/mason-lspconfig.nvim",
 		"williamboman/mason.nvim",
 		"windwp/nvim-autopairs",
+		{ "codota/tabnine-nvim", run = "./dl_binaries.sh" },
 		{ "j-hui/fidget.nvim", tag = "legacy" },
 		{ "rose-pine/neovim", as = "rose-pine" },
 		{ "nvim-telescope/telescope.nvim", tag = "0.1.0" },

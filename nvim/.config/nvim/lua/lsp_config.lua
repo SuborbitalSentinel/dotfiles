@@ -33,18 +33,6 @@ table.insert(lua_runtime_path, "lua/?.lua")
 table.insert(lua_runtime_path, "lua/?/init.lua")
 
 local servers = {
-	gopls = {
-		cmd = { "gopls", "serve" },
-		handlers = rounded_border_handlers,
-		settings = {
-			gopls = {
-				analyses = {
-					unusedparams = true,
-				},
-				staticcheck = true,
-			},
-		},
-	},
 	rust_analyzer = {
 		handlers = rounded_border_handlers,
 		settings = {
@@ -115,6 +103,22 @@ require("mason-lspconfig").setup_handlers({
 					telemetry = {
 						enable = false,
 					},
+				},
+			},
+		})
+	end,
+	["gopls"] = function()
+		require("lspconfig")["gopls"].setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			handlers = rounded_border_handlers,
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
+					},
+					staticcheck = true,
+					templateExtensions = { "gohtml" },
 				},
 			},
 		})
