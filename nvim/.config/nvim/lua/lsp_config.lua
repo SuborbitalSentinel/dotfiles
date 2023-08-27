@@ -20,7 +20,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 	vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 	vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-	vim.keymap.set("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+	vim.keymap.set("n", "<leader>dl", "<cmd>lua vim.lsp.diagnostic.setloclist()<CR>", opts)
 end
 
 local rounded_border_handlers = {
@@ -31,19 +31,6 @@ local rounded_border_handlers = {
 local lua_runtime_path = vim.split(package.path, ";")
 table.insert(lua_runtime_path, "lua/?.lua")
 table.insert(lua_runtime_path, "lua/?/init.lua")
-
-local servers = {
-	rust_analyzer = {
-		handlers = rounded_border_handlers,
-		settings = {
-			rust = {
-				unstable_features = true,
-				build_on_save = false,
-				all_features = true,
-			},
-		},
-	},
-}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
@@ -70,7 +57,7 @@ require("mason-lspconfig").setup({
 		"lua_ls",
 		"rust_analyzer",
 		"gopls",
-		"csharp_ls",
+		"omnisharp",
 		"zls",
 	},
 })
@@ -123,4 +110,32 @@ require("mason-lspconfig").setup_handlers({
 			},
 		})
 	end,
+    ["omnisharp"] = function()
+        require("lspconfig")["omnisharp"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            root_dir = function(fname)
+                local primary = require("lspconfig").util.root_pattern("*.sln")(fname)
+                local fallback = require("lspconfig").util.root_pattern("*.csproj")(fname)
+                return primary or fallback
+            end,
+            handlers = vim.tbl_extend("force", rounded_border_handlers, {
+                ["textDocument/definition"] = require("omnisharp_extended").handler,
+            }),
+        })
+    end,
+    ["csharp_ls"] = function()
+        require("lspconfig")["csharp_ls"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            root_dir = function(fname)
+                local primary = require("lspconfig").util.root_pattern("*.sln")(fname)
+                local fallback = require("lspconfig").util.root_pattern("*.csproj")(fname)
+                return primary or fallback
+            end,
+            handlers = vim.tbl_extend("force", rounded_border_handlers, {
+                ["textDocument/definition"] = require("csharpls_extended").handler,
+            }),
+        })
+    end,
 })
