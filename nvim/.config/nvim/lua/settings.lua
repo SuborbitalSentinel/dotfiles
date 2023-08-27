@@ -8,6 +8,8 @@ g.loaded_ruby_provider = 0
 
 g.mapleader = ","
 
+opt.relativenumber = true
+
 opt.listchars = {
 	eol = '↲',
 	tab = '▸ ',
@@ -34,6 +36,7 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.fixendofline = false
 opt.splitbelow = true
+opt.splitright = true
 opt.laststatus = 3
 opt.foldcolumn = "auto"
 
