@@ -24,7 +24,7 @@ return require("packer").startup(function(use)
 		"hrsh7th/cmp-nvim-lua",
 		"hrsh7th/cmp-path",
 		"hrsh7th/nvim-cmp",
-		"jose-elias-alvarez/null-ls.nvim",
+		"stevearc/conform.nvim",
 		"kyazdani42/nvim-web-devicons",
 		"lewis6991/gitsigns.nvim",
 		"neovim/nvim-lspconfig",
