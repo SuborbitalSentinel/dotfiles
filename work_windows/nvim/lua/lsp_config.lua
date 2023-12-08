@@ -1,17 +1,7 @@
 local lspconfig = require("lspconfig")
 
 local on_attach = function(client, bufnr)
-    -- Turn off formatting capabilities for all lsp's...will manually choose which formatter to use with null_ls
-    client.server_capabilities.documentFormattingProvider = false
-
     local opts = { noremap = true, silent = true, buffer = bufnr }
-
-    if client.name == "omnisharp" then
-        -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2483#issuecomment-1492605642
-        -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2483
-        -- https://github.com/OmniSharp/omnisharp-roslyn/pull/2520
-        -- client.server_capabilities.semanticTokensProvider = nil
-    end
 
     vim.keymap.set("n", "<leader>bo", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
     vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -29,7 +19,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
     vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
     vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-    vim.keymap.set("n", "<leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+    vim.keymap.set("n", "<leader>dl", "<cmd>lua vim.lsp.diagnostic.setloclist()<CR>", opts)
 end
 
 local rounded_border_handlers = {
@@ -40,21 +30,21 @@ local rounded_border_handlers = {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-local null_ls = require("null-ls")
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.csharpier,
-        null_ls.builtins.formatting.prettier,
-        null_ls.builtins.formatting.sqlfmt,
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.black,
+local conform = require("conform")
+conform.setup({
+    formatters_by_ft = {
+        lua = { "stylua" },
+        javascript = { "prettier" },
+        cs = { "csharpier" },
+        python = { "black" },
     },
-    capabilities = capabilities,
-    on_attach = function(_, bufnr)
-        local opts = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set("n", "<leader>f", "<cmd>lua vim.lsp.buf.format { async = true }<CR>", opts)
-    end,
 })
+vim.keymap.set({ "n", "v" }, "<leader>f", function()
+    conform.format({
+        lsp_fallback = true,
+        async = false,
+    })
+end)
 
 require("mason").setup()
 require("mason-lspconfig").setup({ ensure_installed = { "lua_ls" } })
@@ -75,22 +65,10 @@ require("mason-lspconfig").setup_handlers({
                 local fallback = lspconfig.util.root_pattern("*.csproj")(fname)
                 return primary or fallback
             end,
+            analyze_open_documents_only = true,
+            organize_imports_on_format = true,
             handlers = vim.tbl_extend("force", rounded_border_handlers, {
                 ["textDocument/definition"] = require("omnisharp_extended").handler,
-            }),
-        })
-    end,
-    ["csharp_ls"] = function()
-        require("lspconfig")["csharp_ls"].setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-            root_dir = function(fname)
-                local primary = lspconfig.util.root_pattern("*.sln")(fname)
-                local fallback = lspconfig.util.root_pattern("*.csproj")(fname)
-                return primary or fallback
-            end,
-            handlers = vim.tbl_extend("force", rounded_border_handlers, {
-                ["textDocument/definition"] = require("csharpls_extended").handler,
             }),
         })
     end,
