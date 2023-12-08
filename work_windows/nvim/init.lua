@@ -1,5 +1,5 @@
-vim.cmd [[
-set guifont=Hack\ NF:h10.5
+vim.cmd([[
+set guifont=Hack\ NF:h10
 let g:neovide_cursor_animation_length=0.05
 let g:neovide_cursor_trail_length=0.5
 
@@ -8,44 +8,111 @@ let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [
 let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
 let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
 set shellquote= shellxquote=
-]]
+]])
 
-require('plugins')
-require('settings')
-require('keymap')
-require('lsp_config')
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.python3_host_prog = "~/scoop/shims/python3.exe"
+vim.g.mapleader = ","
+vim.o.tags = "./.git/tags;," .. vim.o.tags
+vim.opt.listchars = {
+    eol = "↲",
+    tab = "▸ ",
+    trail = "·",
+}
+vim.opt.list = true
+vim.opt.termguicolors = true
+vim.opt.relativenumber = true
+vim.opt.sidescrolloff = 30
+vim.opt.colorcolumn = "150"
+vim.opt.ttimeoutlen = 25
+vim.opt.showtabline = 2
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = true
+vim.opt.hlsearch = false
+vim.opt.wrap = false
+vim.opt.showmode = false
+vim.opt.swapfile = false
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.fixendofline = false
+vim.opt.splitbelow = true
+vim.opt.laststatus = 3
+vim.opt.foldcolumn = "auto"
+vim.opt.completeopt = "menu,menuone,noselect"
+
+vim.cmd([[packadd cfilter]])
+
+require("lazy").setup("plugins")
+require("lsp_config")
+
+local opts = { noremap = true, silent = true }
+
+-- Copy filename to clipboard
+vim.keymap.set("n", "<leader>cfg", function()
+    vim.fn.setreg("+", vim.fn.expand("%"))
+end)
+
+-- keep things in the middle...
+vim.keymap.set("n", "[q", "<CMD>:cprevious<CR>zz", opts)
+vim.keymap.set("n", "[Q", "<CMD>:cfirst<CR>zz", opts)
+vim.keymap.set("n", "]q", "<CMD>:cnext<CR>zz", opts)
+vim.keymap.set("n", "]Q", "<CMD>:clast<CR>zz", opts)
+vim.keymap.set("n", "n", "nzz", opts)
+vim.keymap.set("n", "N", "Nzz", opts)
+vim.keymap.set("n", "<c-o>", "<c-o>zz", opts)
+vim.keymap.set("n", "<c-i>", "<c-i>zz", opts)
+
+vim.keymap.set("n", "<leader>tr", ":write | edit | TSBufEnable highlight<CR>", opts)
+vim.keymap.set("v", "<leader>y", '"+y', opts)
+vim.keymap.set("", "<leader>p", '"+p', opts)
+
+vim.keymap.set("n", "<leader>ftw", ":e ++ff=dos | w<CR>", opts)
+vim.keymap.set("n", "<leader>ftu", ":e ++ff=dos | setlocal ff=unix | w<CR>", opts)
+vim.keymap.set("n", "<c-l>", "<cmd>noh<cr>", opts)
+
+vim.keymap.set("n", "<leader>ws", "<CMD>%s/^\\s\\+$//<CR>", opts)
+
+if 1 == vim.fn.has("win32") and 1 == vim.fn.has("nvim") then
+    vim.keymap.set("", "<C-z>", "<nop>", opts)
+end
 
 vim.api.nvim_create_autocmd("BufReadPost", {
     group = vim.api.nvim_create_augroup("fugitiveAuGroup", { clear = true }),
     pattern = { "fugitive://*", "term://*" },
-    command = "set bufhidden=delete"
+    command = "set bufhidden=delete",
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     group = vim.api.nvim_create_augroup("XamlAuGroup", { clear = true }),
     pattern = { "*.xaml" },
     callback = function()
-        vim.cmd [[setfiletype xml]]
+        vim.cmd([[setfiletype xml]])
         vim.opt_local.tabstop = 2
         vim.opt_local.softtabstop = 2
         vim.opt_local.shiftwidth = 2
-    end
+    end,
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     group = vim.api.nvim_create_augroup("CakeAuGroup", { clear = true }),
     pattern = { "*.cake" },
-    command = "setfiletype cs"
-})
-
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-    group = vim.api.nvim_create_augroup("JenkinsfileAuGroup", { clear = true }),
-    pattern = { "Jenkinsfile*" },
-    command = "setfiletype groovy"
-})
-
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-    group = vim.api.nvim_create_augroup("DockerfileAuGroup", { clear = true }),
-    pattern = { "*.Dockerfile" },
-    command = ""
+    command = "setfiletype cs",
 })
