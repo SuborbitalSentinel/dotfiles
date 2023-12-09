@@ -1,8 +1,6 @@
--- params are: (client, bufnr)
 local on_attach = function(_, bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr }
-
-	vim.keymap.set("n", "<leader>bo", "<Cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
+	vim.keymap.set("n", "<leader>bo", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
 	vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	vim.keymap.set("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
@@ -26,14 +24,11 @@ local rounded_border_handlers = {
 	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 }
 
-local lua_runtime_path = vim.split(package.path, ";")
-table.insert(lua_runtime_path, "lua/?.lua")
-table.insert(lua_runtime_path, "lua/?/init.lua")
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 local conform = require("conform")
+
 conform.setup({
 	formatters_by_ft = {
 		cs = { "csharpier" },
@@ -44,6 +39,7 @@ conform.setup({
 		lua = { "stylua" },
 		zig = { "zigfmt" },
 		rust = { "rustfmt" },
+		python = { "black" },
 	},
 })
 vim.keymap.set({ "n", "v" }, "<leader>f", function()
@@ -71,10 +67,48 @@ require("mason-lspconfig").setup_handlers({
 			handlers = rounded_border_handlers,
 		})
 	end,
+	["omnisharp"] = function()
+		require("lspconfig")["omnisharp"].setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			root_dir = function(fname)
+				local lspconfig = require("lspconfig")
+				local primary = lspconfig.util.root_pattern("*.sln")(fname)
+				local fallback = lspconfig.util.root_pattern("*.csproj")(fname)
+				return primary or fallback
+			end,
+			analyze_open_documents_only = true,
+			organize_imports_on_format = true,
+			handlers = vim.tbl_extend("force", rounded_border_handlers, {
+				["textDocument/definition"] = require("omnisharp_extended").handler,
+			}),
+		})
+	end,
+	["gopls"] = function()
+		require("lspconfig")["gopls"].setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			handlers = rounded_border_handlers,
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
+					},
+					staticcheck = true,
+					templateExtensions = { "gohtml" },
+				},
+			},
+		})
+	end,
 	["lua_ls"] = function()
+		local lua_runtime_path = vim.split(package.path, ";")
+		table.insert(lua_runtime_path, "lua/?.lua")
+		table.insert(lua_runtime_path, "lua/?/init.lua")
+
 		require("lspconfig")["lua_ls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+
 			handlers = rounded_border_handlers,
 			settings = {
 				Lua = {
@@ -94,50 +128,6 @@ require("mason-lspconfig").setup_handlers({
 					},
 				},
 			},
-		})
-	end,
-	["gopls"] = function()
-		require("lspconfig")["gopls"].setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-			handlers = rounded_border_handlers,
-			settings = {
-				gopls = {
-					analyses = {
-						unusedparams = true,
-					},
-					staticcheck = true,
-					templateExtensions = { "gohtml" },
-				},
-			},
-		})
-	end,
-	["omnisharp"] = function()
-		require("lspconfig")["omnisharp"].setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-			root_dir = function(fname)
-				local primary = require("lspconfig").util.root_pattern("*.sln")(fname)
-				local fallback = require("lspconfig").util.root_pattern("*.csproj")(fname)
-				return primary or fallback
-			end,
-			handlers = vim.tbl_extend("force", rounded_border_handlers, {
-				["textDocument/definition"] = require("omnisharp_extended").handler,
-			}),
-		})
-	end,
-	["csharp_ls"] = function()
-		require("lspconfig")["csharp_ls"].setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-			root_dir = function(fname)
-				local primary = require("lspconfig").util.root_pattern("*.sln")(fname)
-				local fallback = require("lspconfig").util.root_pattern("*.csproj")(fname)
-				return primary or fallback
-			end,
-			handlers = vim.tbl_extend("force", rounded_border_handlers, {
-				["textDocument/definition"] = require("csharpls_extended").handler,
-			}),
 		})
 	end,
 })
