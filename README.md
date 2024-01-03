@@ -6,8 +6,10 @@ SDKs TO INSTALL:
 * [golang](https://go.dev/doc/install)
 * [rust](https://www.rust-lang.org/tools/install)
 * [zig](https://github.com/ziglang/zig/wiki/Install-Zig-from-a-Package-Manager)
+* [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 TOOLS TO INSTALL:
+* [docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 * [neovim](https://github.com/neovim/neovim/releases/) (appimage)
 * [delta](https://github.com/dandavison/delta/releases) (.deb)
 * [bat](https://github.com/sharkdp/bat#installation) (apt)
@@ -18,14 +20,14 @@ TOOLS TO INSTALL:
 * stow (apt)
 * tree (apt)
 
-To get all the submodules `git submodule update --init --recursive`
-THEMES AND FONTS
-* rose-pine themes
+
+Themes and Fonts (get the submodules: `git submodule update --init --recursive`)
+* stow the fonts directory (requires logout before gnome terminal can see)
+* rose-pine themes (clone the submodules and follow the readme files)
 ** [gnome-terminal](https://github.com/rose-pine/gnome-terminal)
-*** clone the submodule and follow the readme instructions
 ** [fzf](https://github.com/rose-pine/fzf)
 
-To automatically symlink:
+To create symlinks via stow:
 * git clone git@github.com:SuborbitalSentinel/dotfiles.git $HOME/.dotfiles
 * cd $HOME/.dotfiles
 * stow \<target\>
