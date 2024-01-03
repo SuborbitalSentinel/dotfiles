@@ -9,6 +9,7 @@ SDKs TO INSTALL:
 
 TOOLS TO INSTALL:
 * [neovim](https://github.com/neovim/neovim/releases/) (appimage)
+* [delta](https://github.com/dandavison/delta/releases) (.deb)
 * [bat](https://github.com/sharkdp/bat#installation) (apt)
 * [fd-find](https://github.com/sharkdp/fd#installation) (apt)
 * [ripgrep](https://github.com/BurntSushi/ripgrep#installation) (apt)
@@ -17,9 +18,11 @@ TOOLS TO INSTALL:
 * stow (apt)
 * tree (apt)
 
+To get all the submodules `git submodule update --init --recursive`
 THEMES AND FONTS
 * rose-pine themes
 ** [gnome-terminal](https://github.com/rose-pine/gnome-terminal)
+*** clone the submodule and follow the readme instructions
 ** [fzf](https://github.com/rose-pine/fzf)
 
 To automatically symlink:
