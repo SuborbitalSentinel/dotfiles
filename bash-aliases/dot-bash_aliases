@@ -1,0 +1,3 @@
+alias bat="batcat"
+alias fd="fdfind"
+alias nvim="~/.local/bin/nvim.appimage"
