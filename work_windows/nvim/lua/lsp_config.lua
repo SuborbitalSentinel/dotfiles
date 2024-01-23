@@ -30,22 +30,6 @@ local rounded_border_handlers = {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-local conform = require("conform")
-conform.setup({
-    formatters_by_ft = {
-        lua = { "stylua" },
-        javascript = { "prettier" },
-        cs = { "csharpier" },
-        python = { "black" },
-    },
-})
-vim.keymap.set({ "n", "v" }, "<leader>f", function()
-    conform.format({
-        lsp_fallback = true,
-        async = false,
-    })
-end)
-
 require("mason").setup()
 require("mason-lspconfig").setup({ ensure_installed = { "lua_ls" } })
 require("mason-lspconfig").setup_handlers({
@@ -67,6 +51,7 @@ require("mason-lspconfig").setup_handlers({
             end,
             analyze_open_documents_only = true,
             organize_imports_on_format = true,
+            enable_ms_build_load_projects_on_demand = true,
             handlers = vim.tbl_extend("force", rounded_border_handlers, {
                 ["textDocument/definition"] = require("omnisharp_extended").handler,
             }),
