@@ -39,7 +39,7 @@ vim.opt.list = true
 vim.opt.termguicolors = true
 vim.opt.relativenumber = true
 vim.opt.sidescrolloff = 30
-vim.opt.colorcolumn = "150"
+vim.opt.colorcolumn = "120"
 vim.opt.ttimeoutlen = 25
 vim.opt.showtabline = 2
 vim.opt.shiftwidth = 4
@@ -88,7 +88,7 @@ vim.keymap.set("n", "<leader>ftw", ":e ++ff=dos | w<CR>", opts)
 vim.keymap.set("n", "<leader>ftu", ":e ++ff=dos | setlocal ff=unix | w<CR>", opts)
 vim.keymap.set("n", "<c-l>", "<cmd>noh<cr>", opts)
 
-vim.keymap.set("n", "<leader>ws", "<CMD>%s/^\\s\\+$//<CR>", opts)
+-- vim.keymap.set("n", "<leader>ws", "<CMD>%s/^\\s\\+$//<CR>", opts)
 
 if 1 == vim.fn.has("win32") and 1 == vim.fn.has("nvim") then
     vim.keymap.set("", "<C-z>", "<nop>", opts)
