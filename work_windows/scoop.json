@@ -1,0 +1,248 @@
+{
+    "apps": [
+        {
+            "Name": "7zip",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-06-28T14:18:25.8173885-04:00",
+            "Version": "23.01"
+        },
+        {
+            "Name": "alacritty",
+            "Source": "extras",
+            "Info": "",
+            "Updated": "2023-10-10T09:21:32.0304726-04:00",
+            "Version": "0.12.3"
+        },
+        {
+            "Name": "bat",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-12-21T13:00:39.7402188-05:00",
+            "Version": "0.24.0"
+        },
+        {
+            "Name": "bottom",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-09-08T13:45:20.1819238-04:00",
+            "Version": "0.9.6"
+        },
+        {
+            "Name": "cacert",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-12-21T13:00:41.6450448-05:00",
+            "Version": "2023-12-12"
+        },
+        {
+            "Name": "dark",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2022-09-19T14:50:59.3559786-04:00",
+            "Version": "3.11.2"
+        },
+        {
+            "Name": "delta",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-06-07T14:06:42.9271967-04:00",
+            "Version": "0.16.5"
+        },
+        {
+            "Name": "dotPeek",
+            "Source": "extras",
+            "Info": "",
+            "Updated": "2023-12-21T13:01:10.8370983-05:00",
+            "Version": "2023.3.2"
+        },
+        {
+            "Name": "fd",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-12-21T13:01:12.997193-05:00",
+            "Version": "9.0.0"
+        },
+        {
+            "Name": "fzf",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2024-01-12T10:03:56.4250425-05:00",
+            "Version": "0.45.0"
+        },
+        {
+            "Name": "gcc",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-12-04T14:14:34.7139344-05:00",
+            "Version": "11.2.0"
+        },
+        {
+            "Name": "git",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-12-21T13:02:00.1711569-05:00",
+            "Version": "2.43.0"
+        },
+        {
+            "Name": "innounp",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-02-13T10:05:27.5757997-05:00",
+            "Version": "0.50"
+        },
+        {
+            "Name": "insomnia",
+            "Source": "extras",
+            "Info": "",
+            "Updated": "2023-09-08T13:50:24.4297909-04:00",
+            "Version": "2023.5.8"
+        },
+        {
+            "Name": "jq",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-12-21T13:02:01.936744-05:00",
+            "Version": "1.7.1"
+        },
+        {
+            "Name": "lessmsi",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2022-09-19T14:51:25.4048932-04:00",
+            "Version": "1.10.0"
+        },
+        {
+            "Name": "neovim",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2024-01-12T10:04:20.7121548-05:00",
+            "Version": "0.9.5"
+        },
+        {
+            "Name": "netcoredbg",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-12-21T13:02:04.5327774-05:00",
+            "Version": "3.0.0-1018"
+        },
+        {
+            "Name": "nodejs",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-12-21T13:02:56.758669-05:00",
+            "Version": "21.5.0"
+        },
+        {
+            "Name": "psfzf",
+            "Source": "extras",
+            "Info": "",
+            "Updated": "2023-10-10T09:24:30.5918347-04:00",
+            "Version": "2.5.19"
+        },
+        {
+            "Name": "python",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-12-21T13:06:45.6407303-05:00",
+            "Version": "3.12.1"
+        },
+        {
+            "Name": "ripgrep",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2024-01-12T10:04:22.495686-05:00",
+            "Version": "14.1.0"
+        },
+        {
+            "Name": "shellcheck",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-12-13T11:04:39.7526136-05:00",
+            "Version": "0.9.0"
+        },
+        {
+            "Name": "snoop",
+            "Source": "extras",
+            "Info": "",
+            "Updated": "2023-12-21T13:06:51.604594-05:00",
+            "Version": "5.1.0"
+        },
+        {
+            "Name": "spacesniffer",
+            "Source": "extras",
+            "Info": "",
+            "Updated": "2022-11-28T13:27:19.5883964-05:00",
+            "Version": "1.3.0.2"
+        },
+        {
+            "Name": "sudo",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2022-09-19T14:57:14.4729704-04:00",
+            "Version": "0.2020.01.26"
+        },
+        {
+            "Name": "tightvnc",
+            "Source": "extras",
+            "Info": "",
+            "Updated": "2023-06-07T14:11:57.742918-04:00",
+            "Version": "2.8.81"
+        },
+        {
+            "Name": "tree-sitter",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-04-04T13:10:33.401415-04:00",
+            "Version": "0.20.8"
+        },
+        {
+            "Name": "vscode",
+            "Source": "extras",
+            "Info": "",
+            "Updated": "2024-02-02T14:38:16.1260509-05:00",
+            "Version": "1.86.0"
+        },
+        {
+            "Name": "wget",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-06-07T14:12:19.2310512-04:00",
+            "Version": "1.21.4"
+        },
+        {
+            "Name": "windows-terminal",
+            "Source": "extras",
+            "Info": "",
+            "Updated": "2023-12-21T13:07:10.5543221-05:00",
+            "Version": "1.18.3181.0"
+        },
+        {
+            "Name": "zig",
+            "Source": "main",
+            "Info": "",
+            "Updated": "2023-08-09T09:55:46.0163191-04:00",
+            "Version": "0.11.0"
+        }
+    ],
+    "buckets": [
+        {
+            "Name": "extras",
+            "Source": "https://github.com/ScoopInstaller/Extras",
+            "Updated": "2024-02-02T13:43:40-05:00",
+            "Manifests": 1958
+        },
+        {
+            "Name": "main",
+            "Source": "https://github.com/ScoopInstaller/Main",
+            "Updated": "2024-02-02T11:26:09-05:00",
+            "Manifests": 1287
+        },
+        {
+            "Name": "versions",
+            "Source": "https://github.com/ScoopInstaller/Versions",
+            "Updated": "2024-02-02T11:30:25-05:00",
+            "Manifests": 436
+        }
+    ]
+}
