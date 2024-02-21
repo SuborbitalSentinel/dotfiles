@@ -38,7 +38,6 @@ return {
             },
             extensions = {
                 "quickfix",
-                "fugitive",
             },
         })
     end,

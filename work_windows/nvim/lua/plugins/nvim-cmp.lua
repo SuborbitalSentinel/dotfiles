@@ -3,7 +3,6 @@ return {
     dependencies = {
         "L3MON4D3/LuaSnip",
         "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-calc",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-nvim-lua",
@@ -32,10 +31,9 @@ return {
             sources = {
                 { name = "nvim_lsp" },
                 { name = "nvim_lsp_signature_help" },
-                { name = "buffer" },
                 { name = "nvim_lua" },
                 { name = "path" },
-                { name = "calc" },
+                { name = "buffer" },
             },
         })
     end,
