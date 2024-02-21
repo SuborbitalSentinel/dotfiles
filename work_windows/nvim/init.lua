@@ -1,4 +1,5 @@
 vim.cmd([[
+
 set guifont=Hack\ NF:h10
 let g:neovide_cursor_animation_length=0.05
 let g:neovide_cursor_trail_length=0.5
@@ -12,14 +13,14 @@ set shellquote= shellxquote=
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -31,9 +32,9 @@ vim.g.python3_host_prog = "~/scoop/shims/python3.exe"
 vim.g.mapleader = ","
 vim.o.tags = "./.git/tags;," .. vim.o.tags
 vim.opt.listchars = {
-    eol = "↲",
-    tab = "▸ ",
-    trail = "·",
+	eol = "↲",
+	tab = "▸ ",
+	trail = "·",
 }
 vim.opt.list = true
 vim.opt.termguicolors = true
@@ -42,10 +43,8 @@ vim.opt.sidescrolloff = 30
 vim.opt.colorcolumn = "120"
 vim.opt.ttimeoutlen = 25
 vim.opt.showtabline = 2
-vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.expandtab = true
+vim.opt.shiftwidth = 0
 vim.opt.hlsearch = false
 vim.opt.wrap = false
 vim.opt.showmode = false
@@ -67,7 +66,7 @@ local opts = { noremap = true, silent = true }
 
 -- Copy filename to clipboard
 vim.keymap.set("n", "<leader>cfg", function()
-    vim.fn.setreg("+", vim.fn.expand("%"))
+	vim.fn.setreg("+", vim.fn.expand("%"))
 end)
 
 -- keep things in the middle...
@@ -91,28 +90,26 @@ vim.keymap.set("n", "<c-l>", "<cmd>noh<cr>", opts)
 -- vim.keymap.set("n", "<leader>ws", "<CMD>%s/^\\s\\+$//<CR>", opts)
 
 if 1 == vim.fn.has("win32") and 1 == vim.fn.has("nvim") then
-    vim.keymap.set("", "<C-z>", "<nop>", opts)
+	vim.keymap.set("", "<C-z>", "<nop>", opts)
 end
 
 vim.api.nvim_create_autocmd("BufReadPost", {
-    group = vim.api.nvim_create_augroup("fugitiveAuGroup", { clear = true }),
-    pattern = { "fugitive://*", "term://*" },
-    command = "set bufhidden=delete",
+	group = vim.api.nvim_create_augroup("fugitiveAuGroup", { clear = true }),
+	pattern = { "fugitive://*", "term://*" },
+	command = "set bufhidden=delete",
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-    group = vim.api.nvim_create_augroup("XamlAuGroup", { clear = true }),
-    pattern = { "*.xaml" },
-    callback = function()
-        vim.cmd([[setfiletype xml]])
-        vim.opt_local.tabstop = 2
-        vim.opt_local.softtabstop = 2
-        vim.opt_local.shiftwidth = 2
-    end,
+	group = vim.api.nvim_create_augroup("XamlAuGroup", { clear = true }),
+	pattern = { "*.xaml" },
+	callback = function()
+		vim.cmd([[setfiletype xml]])
+		vim.opt_local.tabstop = 2
+	end,
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-    group = vim.api.nvim_create_augroup("CakeAuGroup", { clear = true }),
-    pattern = { "*.cake" },
-    command = "setfiletype cs",
+	group = vim.api.nvim_create_augroup("CakeAuGroup", { clear = true }),
+	pattern = { "*.cake" },
+	command = "setfiletype cs",
 })
