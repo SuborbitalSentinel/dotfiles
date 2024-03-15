@@ -1,4 +1,1 @@
-alias bat="batcat"
-alias fd="fdfind"
-alias nvim="~/.local/bin/nvim.appimage"
 alias lsa="ls -la --group-directories-first"
