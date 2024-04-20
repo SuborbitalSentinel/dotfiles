@@ -12,6 +12,7 @@ set shellquote= shellxquote=
 ]])
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- local lazypath = "c:\\git\\nvim-data\\lazy\\lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
@@ -23,6 +24,7 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
+vim.opt.diffopt:append("linematch:60")
 
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python_provider = 0
@@ -33,11 +35,14 @@ vim.g.mapleader = ","
 vim.o.tags = "./.git/tags;," .. vim.o.tags
 vim.opt.listchars = {
 	eol = "↲",
-	tab = "▸ ",
+	lead = "·",
 	trail = "·",
+	tab = "  ",
+	nbsp = "@",
 }
 vim.opt.list = true
 vim.opt.termguicolors = true
+vim.opt.cursorline = true
 vim.opt.relativenumber = true
 vim.opt.sidescrolloff = 30
 vim.opt.colorcolumn = "120"
@@ -112,4 +117,14 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	group = vim.api.nvim_create_augroup("CakeAuGroup", { clear = true }),
 	pattern = { "*.cake" },
 	command = "setfiletype cs",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("GitAuGroup", { clear = true }),
+	pattern = { "gitcommit" },
+	callback = function()
+		vim.schedule(function()
+			require("editorconfig").properties.max_line_length(0, "72")
+		end)
+	end,
 })
