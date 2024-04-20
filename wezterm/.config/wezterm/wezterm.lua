@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.enable_wayland = false
-config.front_end="WebGpu"
+config.front_end = "WebGpu"
 config.font = wezterm.font("Hack Nerd Font Mono")
 config.font_size = 12
 
@@ -28,12 +28,12 @@ config.keys = {
 	{
 		key = "o",
 		mods = "LEADER",
-		action = wezterm.action.RotatePanes('Clockwise')
+		action = wezterm.action.RotatePanes("Clockwise"),
 	},
 	{
 		key = "o",
 		mods = "LEADER|SHIFT",
-		action = wezterm.action.RotatePanes('CounterClockwise')
+		action = wezterm.action.RotatePanes("CounterClockwise"),
 	},
 	{
 		key = "h",
@@ -106,6 +106,16 @@ config.keys = {
 		key = "k",
 		mods = "LEADER",
 		action = wezterm.action.ActivatePaneDirection("Up"),
+	},
+	{
+		key = "{",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.MoveTabRelative(-1),
+	},
+	{
+		key = "}",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.MoveTabRelative(1),
 	},
 }
 
