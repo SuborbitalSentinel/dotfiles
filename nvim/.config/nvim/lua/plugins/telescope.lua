@@ -45,6 +45,7 @@ return {
 		vim.keymap.set("n", "<c-p>", require("telescope.builtin").git_files, opts)
 		vim.keymap.set("n", "<c-b>", require("telescope.builtin").buffers, opts)
 		vim.keymap.set("n", "<c-g>", require("telescope.builtin").live_grep, opts)
+        vim.keymap.set("n", "<leader>hh", require("telescope.builtin").quickfixhistory, opts)
 		vim.keymap.set("n", "<leader>ht", require("telescope.builtin").help_tags, opts)
 	end,
 }

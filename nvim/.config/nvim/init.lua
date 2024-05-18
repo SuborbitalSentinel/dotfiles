@@ -71,6 +71,14 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	end,
 })
 
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufEnter" }, {
+	group = vim.api.nvim_create_augroup("ComposeAuGroup", { clear = true }),
+	pattern = { "compose.yml" },
+	callback = function()
+		vim.cmd([[setfiletype yaml.docker-compose]])
+	end,
+})
+
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	group = vim.api.nvim_create_augroup("XamlAuGroup", { clear = true }),
 	pattern = { "*.xaml", "*.axaml" },
