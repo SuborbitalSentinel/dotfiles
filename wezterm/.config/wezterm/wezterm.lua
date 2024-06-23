@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
+config.audible_bell = "Disabled"
 config.enable_wayland = false
 config.front_end = "WebGpu"
 config.font = wezterm.font("Hack Nerd Font Mono")
