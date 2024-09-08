@@ -1,9 +1,3 @@
-[submodule "themes/rose-pine-gnome-terminal"]
-	path = themes/rose-pine-gnome-terminal
-	url = https://github.com/rose-pine/gnome-terminal
 [submodule "themes/rose-pine-fzf"]
 	path = themes/rose-pine-fzf
 	url = https://github.com/rose-pine/fzf
-[submodule "bash-git-prompt/.bash-git-prompt"]
-	path = bash-git-prompt/.bash-git-prompt
-	url = https://github.com/magicmonty/bash-git-prompt
