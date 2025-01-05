@@ -1,29 +1,39 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"--branch=stable",
+		lazyrepo,
+		lazypath,
+	})
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
 end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.loaded_perl_provider = 0
-vim.g.loaded_python_provider = 0
+-- vim.g.loaded_python_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.mapleader = ","
 vim.opt.relativenumber = true
 vim.opt.listchars = {
-	eol = '↲',
-	tab = '▸ ',
-	trail = '·',
+	eol = "↲",
+	tab = "▸ ",
+	trail = "·",
 }
 vim.opt.list = false
 vim.opt.sidescrolloff = 30
-vim.opt.colorcolumn = "160"
+vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 100
 vim.opt.ttimeoutlen = 25
 vim.opt.showtabline = 2
@@ -46,16 +56,30 @@ vim.opt.termguicolors = true
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.cmd([[packadd cfilter]])
 
-require("lazy").setup("plugins")
-require("lsp_config")
+require("lazy").setup({
+	spec = {
+		{ import = "plugins" },
+	},
+	rocks = {
+		enabled = false,
+	},
+	change_detection = {
+		notify = false,
+	},
+})
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<leader>tr", ":write | edit | TSBufEnable highlight<CR>", opts)
+vim.keymap.set(
+	"n",
+	"<leader>tr",
+	":write | edit | TSBufEnable highlight<CR>",
+	opts
+)
 vim.keymap.set("v", "<leader>y", '"+y', opts)
 vim.keymap.set("", "<leader>p", '"+p', opts)
 
 vim.api.nvim_create_autocmd("BufReadPost", {
-    group = vim.api.nvim_create_augroup("fugitiveAuGroup", { clear = true }),
+	group = vim.api.nvim_create_augroup("fugitiveAuGroup", { clear = true }),
 	pattern = { "fugitive://*", "term://*" },
 	command = "set bufhidden=delete",
 })
@@ -74,9 +98,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufEnter" }, {
 	group = vim.api.nvim_create_augroup("ComposeAuGroup", { clear = true }),
 	pattern = { "compose.yml" },
-	callback = function()
-		vim.cmd([[setfiletype yaml.docker-compose]])
-	end,
+	callback = function() vim.cmd([[setfiletype yaml.docker-compose]]) end,
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {

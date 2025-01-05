@@ -1,6 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	version = "0.1.5",
+	version = "0.1.8",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-telescope/telescope-ui-select.nvim",
@@ -32,20 +32,21 @@ return {
 		})
 		telescope.load_extension("zf-native")
 		telescope.load_extension("ui-select")
+		local builtin = require("telescope.builtin")
 
 		local function search_vimrc()
-			require("telescope.builtin").find_files({
+			builtin.find_files({
 				prompt_title = "< NVIM Config >",
-				cwd = "~/.config/nvim/",
+				cwd = vim.fn.stdpath("config"),
 			})
 		end
 
 		vim.keymap.set("n", "<leader>vrc", search_vimrc, opts)
-		vim.keymap.set("n", "<c-f>", require("telescope.builtin").find_files, opts)
-		vim.keymap.set("n", "<c-p>", require("telescope.builtin").git_files, opts)
-		vim.keymap.set("n", "<c-b>", require("telescope.builtin").buffers, opts)
-		vim.keymap.set("n", "<c-g>", require("telescope.builtin").live_grep, opts)
-        vim.keymap.set("n", "<leader>hh", require("telescope.builtin").quickfixhistory, opts)
-		vim.keymap.set("n", "<leader>ht", require("telescope.builtin").help_tags, opts)
+		vim.keymap.set("n", "<c-f>", builtin.find_files, opts)
+		vim.keymap.set("n", "<c-p>", builtin.git_files, opts)
+		vim.keymap.set("n", "<c-b>", builtin.buffers, opts)
+		vim.keymap.set("n", "<c-g>", builtin.live_grep, opts)
+		vim.keymap.set("n", "<leader>hh", builtin.quickfixhistory, opts)
+		vim.keymap.set("n", "<leader>ht", builtin.help_tags, opts)
 	end,
 }

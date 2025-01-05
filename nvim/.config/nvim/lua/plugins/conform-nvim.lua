@@ -4,28 +4,29 @@ return {
 		local conform = require("conform")
 		conform.setup({
 			formatters_by_ft = {
-				lua = { "stylua" },
+				cs = { "csharpier" },
+				css = { "prettier" },
+				go = { "gofmt" },
+				html = { "prettier" },
 				javascript = { "prettier" },
 				json = { "prettier" },
-				cs = { "csharpier" },
+				lua = { "stylua" },
 				python = { "black" },
+				rust = { "rustfmt" },
+				zig = { "zigfmt" },
 			},
 		})
 
-		vim.keymap.set({ "n", "v" }, "<leader>f", function()
-			conform.format({
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 5000,
-			})
-		end)
-
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = vim.api.nvim_create_augroup("CSAutoSaveAuGroup", { clear = true }),
-			pattern = { "*.cs" },
-			callback = function(args)
-				require("conform").format({ bufnr = args.buf, async = false, timeout_ms = 5000 })
-			end,
-		})
+		vim.keymap.set(
+			{ "n", "v" },
+			"<leader>f",
+			function()
+				conform.format({
+					lsp_fallback = true,
+					async = false,
+					timeout_ms = 5000,
+				})
+			end
+		)
 	end,
 }
