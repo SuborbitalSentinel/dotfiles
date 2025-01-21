@@ -1,5 +1,5 @@
 return {
-	"toppair/peek.nvim",
+	"SuborbitalSentinel/peek.nvim",
 	event = { "VeryLazy" },
 	build = "deno task --quiet build:fast",
 	config = function()
