@@ -66,6 +66,7 @@ require("lazy").setup({
 		notify = false,
 	},
 })
+vim.diagnostic.config({ virtual_lines = true })
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>tr", ":write | edit | TSBufEnable highlight<CR>", opts)
