@@ -909,7 +909,7 @@ $env.config = {
     ]
 }
 
-use ~/.cache/starship/init.nu
+source ~/.cache/starship/init.nu
 source ~/.cache/carapace/init.nu
 source ~/.cache/zoxide/init.nu
 source ~/.cache/bat/init.nu
