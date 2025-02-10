@@ -1,7 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		"Hoffs/omnisharp-extended-lsp.nvim",
 		"Issafalcon/lsp-overloads.nvim",
 		"williamboman/mason.nvim",
 		{
@@ -28,35 +27,6 @@ return {
 		lspconfig.lua_ls.setup({
 			capabilities = capabilities,
 			handlers = rounded_borders,
-		})
-
-		lspconfig.omnisharp.setup({
-			cmd = { "omnisharp.cmd" },
-			capabilities = capabilities,
-			root_dir = function(fname)
-				local primary = lspconfig.util.root_pattern("*.sln")(fname)
-				local fallback = lspconfig.util.root_pattern("*.csproj")(fname)
-				return primary or fallback
-			end,
-			settings = {
-				FormattingOptions = {
-					OrganizeImports = true,
-				},
-				RoslynExtensionsOptions = {
-					AnalyzeOpenDocumentsOnly = true,
-					EnableImportCompletion = true,
-					EnableDecompilationSupport = true,
-				},
-				Sdk = {
-					IncludePrereleases = true,
-				},
-			},
-			handlers = vim.tbl_extend("force", rounded_borders, {
-				["textDocument/definition"] = require("omnisharp_extended").definition_handler,
-				["textDocument/typeDefinition"] = require("omnisharp_extended").type_definition_handler,
-				["textDocument/references"] = require("omnisharp_extended").references_handler,
-				["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
-			}),
 		})
 
 		lspconfig.gopls.setup({

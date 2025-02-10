@@ -1,5 +1,6 @@
 return {
 	"codota/tabnine-nvim",
+	-- enabled = false,
 	build = "pwsh.exe -file .\\dl_binaries.ps1",
 	config = function()
 		require("tabnine").setup({
