@@ -226,8 +226,7 @@ $env.config = {
     }
 
     filesize: {
-        metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
-        format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
+        unit: "binary"
     }
 
     cursor_shape: {
@@ -909,7 +908,6 @@ $env.config = {
     ]
 }
 
-source ~/.cache/starship/init.nu
 source ~/.cache/carapace/init.nu
 source ~/.cache/zoxide/init.nu
 source ~/.cache/bat/init.nu
@@ -930,3 +928,6 @@ def --env y [...args] {
 	}
 	rm -fp $tmp
 }
+
+mkdir ($nu.data-dir | path join "vendor/autoload")
+starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
