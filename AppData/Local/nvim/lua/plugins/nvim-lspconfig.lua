@@ -24,6 +24,16 @@ return {
 		require("mason").setup()
 		local lspconfig = require("lspconfig")
 
+		lspconfig.ts_ls.setup({
+			capabilities = capabilities,
+			handlers = rounded_borders,
+		})
+
+		lspconfig.angularls.setup({
+			capabilities = capabilities,
+			handlers = rounded_borders,
+		})
+
 		lspconfig.lua_ls.setup({
 			capabilities = capabilities,
 			handlers = rounded_borders,

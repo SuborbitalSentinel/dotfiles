@@ -1,6 +1,6 @@
 {
 	"$schema" : "https://aka.ms/winget-packages.schema.2.0.json",
-	"CreationDate" : "2025-02-15T09:30:03.000-00:00",
+	"CreationDate" : "2025-03-02T08:42:08.472-00:00",
 	"Sources" : 
 	[
 		{
@@ -28,13 +28,16 @@
 					"PackageIdentifier" : "Google.Chrome"
 				},
 				{
-					"PackageIdentifier" : "Rustlang.Rust.MSVC"
+					"PackageIdentifier" : "gerardog.gsudo"
 				},
 				{
 					"PackageIdentifier" : "wez.wezterm"
 				},
 				{
 					"PackageIdentifier" : "Neovim.Neovim"
+				},
+				{
+					"PackageIdentifier" : "Rustlang.Rust.MSVC"
 				},
 				{
 					"PackageIdentifier" : "GoLang.Go"
@@ -44,9 +47,6 @@
 				},
 				{
 					"PackageIdentifier" : "Nushell.Nushell"
-				},
-				{
-					"PackageIdentifier" : "gerardog.gsudo"
 				},
 				{
 					"PackageIdentifier" : "Starship.Starship"
@@ -61,9 +61,6 @@
 					"PackageIdentifier" : "GnuWin32.Zip"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.DotNet.SDK.9"
-				},
-				{
 					"PackageIdentifier" : "Microsoft.DotNet.Runtime.6"
 				},
 				{
@@ -71,6 +68,18 @@
 				},
 				{
 					"PackageIdentifier" : "Microsoft.DotNet.SDK.8"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VCRedist.2005.x86"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.DotNet.SDK.9"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VCRedist.2008.x86"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VCRedist.2010.x86"
 				},
 				{
 					"PackageIdentifier" : "Microsoft.VCRedist.2015+.x64"
@@ -166,5 +175,5 @@
 			}
 		}
 	],
-	"WinGetVersion" : "1.9.25200"
+	"WinGetVersion" : "1.10.320"
 }
