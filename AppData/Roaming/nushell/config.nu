@@ -916,8 +916,10 @@ source ~/.cache/winget/init.nu
 nvm use lts
 
 alias cd = z
+alias dotfiles = z (chezmoi source-path)
 alias lg = lazygit
-alias tree = lsd --tree
+alias tree = lsd --tree --ignore-glob="bin" --ignore-glob="obj"
+alias zipup = 7z a (pwd | path basename | $in + ".7z") . -r -xr!bin -xr!obj -xr!.git
 
 def --env y [...args] {
 	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
