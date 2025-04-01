@@ -27,8 +27,6 @@ return {
 				"html",
 				"jsdoc",
 				"json",
-				"json5",
-				"jsonc",
 				"lua",
 				"luadoc",
 				"luap",
@@ -51,7 +49,7 @@ return {
 			modules = {},
 			highlight = {
 				enable = true,
-				disable = { "dockerfile" },
+				-- disable = { "dockerfile" },
 			},
 			indent = { enable = true },
 		})

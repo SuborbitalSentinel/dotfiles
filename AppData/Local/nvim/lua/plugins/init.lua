@@ -1,6 +1,5 @@
 return {
 	"godlygeek/tabular",
-	"tpope/vim-eunuch",
 	"tpope/vim-repeat",
 	"tpope/vim-surround",
 	"tpope/vim-unimpaired",

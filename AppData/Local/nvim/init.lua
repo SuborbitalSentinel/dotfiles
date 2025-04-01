@@ -52,7 +52,8 @@ vim.opt.splitright = true
 vim.opt.laststatus = 3
 vim.opt.foldcolumn = "auto"
 vim.opt.termguicolors = true
-vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.winborder = "rounded"
 vim.cmd([[packadd cfilter]])
 
 require("lazy").setup({
@@ -69,15 +70,8 @@ require("lazy").setup({
 vim.diagnostic.config({ virtual_lines = true })
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<leader>tr", ":write | edit | TSBufEnable highlight<CR>", opts)
 vim.keymap.set("v", "<leader>y", '"+y', opts)
 vim.keymap.set("", "<leader>p", '"+p', opts)
-
-vim.api.nvim_create_autocmd("BufReadPost", {
-	group = vim.api.nvim_create_augroup("fugitiveAuGroup", { clear = true }),
-	pattern = { "fugitive://*", "term://*" },
-	command = "set bufhidden=delete",
-})
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	group = vim.api.nvim_create_augroup("GolangAuGroup", { clear = true }),
@@ -130,7 +124,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	group = vim.api.nvim_create_augroup("HtmlAuGroup", { clear = true }),
+	group = vim.api.nvim_create_augroup("MarkdownAuGroup", { clear = true }),
 	pattern = { "*.md" },
 	callback = function()
 		vim.opt_local.tabstop = 2

@@ -5,8 +5,8 @@ return {
 		local gitsigns = require("gitsigns")
 
 		gitsigns.setup()
-		vim.keymap.set("n", "[c", gitsigns.prev_hunk, opts)
-		vim.keymap.set("n", "]c", gitsigns.next_hunk, opts)
-		vim.keymap.set("n", "td", gitsigns.toggle_deleted, opts)
+		vim.keymap.set("n", "[c", function() gitsigns.nav_hunk("prev") end, opts)
+		vim.keymap.set("n", "]c", function() gitsigns.nav_hunk("next") end, opts)
+		vim.keymap.set("n", "td", gitsigns.preview_hunk_inline, opts)
 	end,
 }

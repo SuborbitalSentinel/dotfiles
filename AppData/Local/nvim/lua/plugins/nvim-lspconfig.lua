@@ -14,30 +14,14 @@ return {
 		},
 	},
 	config = function()
-		local rounded_borders = {
-			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-		}
-
 		local capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 		require("mason").setup()
 		local lspconfig = require("lspconfig")
 
-		lspconfig.ts_ls.setup({
-			capabilities = capabilities,
-			handlers = rounded_borders,
-		})
-
-		lspconfig.angularls.setup({
-			capabilities = capabilities,
-			handlers = rounded_borders,
-		})
-
-		lspconfig.lua_ls.setup({
-			capabilities = capabilities,
-			handlers = rounded_borders,
-		})
+		lspconfig.ts_ls.setup({ capabilities = capabilities })
+		lspconfig.angularls.setup({ capabilities = capabilities })
+		lspconfig.lua_ls.setup({ capabilities = capabilities })
 
 		lspconfig.gopls.setup({
 			capabilities = capabilities,

@@ -34,14 +34,22 @@ return {
 		telescope.load_extension("ui-select")
 		local builtin = require("telescope.builtin")
 
-		local function search_vimrc()
+		local function find_vimrc_file()
 			builtin.find_files({
 				prompt_title = "< NVIM Config >",
 				cwd = vim.fn.stdpath("config"),
 			})
 		end
 
-		vim.keymap.set("n", "<leader>vrc", search_vimrc, opts)
+		local function grep_vimrc_file()
+			builtin.live_grep({
+				prompt_title = "< NVIM Config >",
+				cwd = vim.fn.stdpath("config"),
+			})
+		end
+
+		vim.keymap.set("n", "<leader>vrc", find_vimrc_file, opts)
+		vim.keymap.set("n", "<leader>grc", grep_vimrc_file, opts)
 		vim.keymap.set("n", "<c-f>", builtin.find_files, opts)
 		vim.keymap.set("n", "<c-p>", builtin.git_files, opts)
 		vim.keymap.set("n", "<c-b>", builtin.buffers, opts)
