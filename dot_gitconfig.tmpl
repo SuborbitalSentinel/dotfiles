@@ -22,3 +22,10 @@
     pager = delta --diff-so-fancy
 [alias]
     last = log -1 --stat
+[merge]
+        tool = nvim
+[mergetool]
+        prompt = false
+        keepBackup = false
+[mergetool "nvim"]
+        cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c \"wincmd l\" -c \"wincmd l\" -c \"wincmd l\" -c \"wincmd l\" -c \"wincmd J\"
