@@ -3,7 +3,7 @@ local config = wezterm.config_builder()
 
 config.audible_bell = "Disabled"
 config.font = wezterm.font("0xProto Nerd Font Mono")
-config.font_size = 13
+config.font_size = 22
 
 config.colors = require("lua/rose-pine-moon").colors()
 config.window_frame = require("lua/rose-pine-moon").window_frame()

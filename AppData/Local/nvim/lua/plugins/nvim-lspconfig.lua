@@ -22,6 +22,7 @@ return {
 		lspconfig.ts_ls.setup({ capabilities = capabilities })
 		lspconfig.angularls.setup({ capabilities = capabilities })
 		lspconfig.lua_ls.setup({ capabilities = capabilities })
+		lspconfig.dartls.setup({ capabilities = capabilities })
 
 		lspconfig.gopls.setup({
 			capabilities = capabilities,
