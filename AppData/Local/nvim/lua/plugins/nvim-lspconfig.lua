@@ -1,7 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		"Issafalcon/lsp-overloads.nvim",
 		"williamboman/mason.nvim",
 		{
 			"folke/lazydev.nvim",
@@ -68,12 +67,6 @@ return {
 				vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 				vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 				vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-
-				if client.server_capabilities.signatureHelpProvider then
-					---@diagnostic disable-next-line: missing-fields
-					require("lsp-overloads").setup(client, {})
-					vim.keymap.set({ "n", "i" }, "<A-s>", "<CMD>LspOverloadsSignature<CR>", opts)
-				end
 
 				vim.api.nvim_create_autocmd("BufWritePre", {
 					buffer = bufnr,
