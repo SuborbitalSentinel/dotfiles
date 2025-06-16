@@ -5,8 +5,8 @@ config.audible_bell = "Disabled"
 config.font = wezterm.font("0xProto Nerd Font Mono")
 config.font_size = 22
 
-config.colors = require("lua/rose-pine-moon").colors()
-config.window_frame = require("lua/rose-pine-moon").window_frame()
+config.colors = require("lua/gruvbox-flat").colors()
+config.window_frame = require("lua/gruvbox-flat").window_frame()
 
 config.hide_tab_bar_if_only_one_tab = true
 
