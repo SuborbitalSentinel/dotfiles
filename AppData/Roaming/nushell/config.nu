@@ -18,7 +18,6 @@ $env.config.keybindings ++= [
 
 nvm use lts
 
-alias dotfiles = z (chezmoi source-path)
 alias lg = lazygit
 alias tree = lsd --tree --ignore-glob="bin" --ignore-glob="obj"
 alias zipup = 7z a (pwd | path basename | $in + ".7z") . -r -xr!bin -xr!obj -xr!.git
@@ -33,9 +32,8 @@ def --env y [...args] {
 	rm -fp $tmp
 }
 
+source ~/.zoxide.nu
 source ~/.cache/carapace/init.nu
-source ~/.cache/zoxide/init.nu
-source ~/.cache/bat/init.nu
-source ~/.cache/winget/init.nu
 
 alias cd = z
+alias dotfiles = z (chezmoi source-path)
