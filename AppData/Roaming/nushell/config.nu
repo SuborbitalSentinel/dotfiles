@@ -16,8 +16,6 @@ $env.config.keybindings ++= [
 	}
 ]
 
-nvm use lts
-
 alias lg = lazygit
 alias tree = lsd --tree --ignore-glob="bin" --ignore-glob="obj"
 alias zipup = 7z a (pwd | path basename | $in + ".7z") . -r -xr!bin -xr!obj -xr!.git
@@ -37,3 +35,4 @@ source ~/.cache/carapace/init.nu
 
 alias cd = z
 alias dotfiles = z (chezmoi source-path)
+alias deps = python c:/Users/adam.miller/Documents/Projects/py_scripts/project_dependency.py

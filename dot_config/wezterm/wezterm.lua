@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.audible_bell = "Disabled"
-config.font = wezterm.font("0xProto Nerd Font Mono")
+config.font = wezterm.font_with_fallback({ "0xProto Nerd Font Mono", "Symbols Nerd Font" })
 config.font_size = 22
 
 config.colors = require("lua/gruvbox-flat").colors()

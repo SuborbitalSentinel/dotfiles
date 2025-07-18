@@ -13,18 +13,19 @@ return {
 		},
 	},
 	config = function()
-		local capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
+		require("mason").setup({
+			registries = {
+				"github:mason-org/mason-registry",
+				"github:Crashdummyy/mason-registry",
+			},
+		})
 
-		require("mason").setup()
-		local lspconfig = require("lspconfig")
+		vim.lsp.enable("ts_ls")
+		vim.lsp.enable("lua_ls")
+		vim.lsp.enable("dartls")
 
-		lspconfig.ts_ls.setup({ capabilities = capabilities })
-		lspconfig.angularls.setup({ capabilities = capabilities })
-		lspconfig.lua_ls.setup({ capabilities = capabilities })
-		lspconfig.dartls.setup({ capabilities = capabilities })
-
-		lspconfig.gopls.setup({
-			capabilities = capabilities,
+		vim.lsp.enable("gopls")
+		vim.lsp.config("gopls", {
 			settings = {
 				gopls = {
 					analyses = {

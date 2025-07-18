@@ -2,7 +2,6 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	dependencies = {
 		{ "nvim-treesitter/playground" },
-		{ "nushell/tree-sitter-nu" },
 	},
 	build = function() vim.cmd([[TSUpdate]]) end,
 	config = function()
