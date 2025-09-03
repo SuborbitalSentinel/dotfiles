@@ -31,8 +31,8 @@ vim.opt.listchars = {
 	trail = "·",
 }
 vim.opt.list = false
-vim.opt.sidescrolloff = 30
-vim.opt.colorcolumn = "80"
+vim.opt.sidescrolloff = 45
+vim.opt.colorcolumn = "100"
 vim.opt.updatetime = 100
 vim.opt.ttimeoutlen = 25
 vim.opt.showtabline = 2

@@ -22,6 +22,8 @@
     pager = delta --diff-so-fancy
 [alias]
     last = log -1 --stat
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abb
+rev-commit --all
 [merge]
         tool = nvim
 [mergetool]

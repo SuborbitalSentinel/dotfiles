@@ -36,3 +36,5 @@ source ~/.cache/carapace/init.nu
 alias cd = z
 alias dotfiles = z (chezmoi source-path)
 alias deps = python c:/Users/adam.miller/Documents/Projects/py_scripts/project_dependency.py
+alias dbReset = dotnet run --project c:/Users/adam.miller/Documents/Projects/JEDIv2_Tool_Shed/Dev/BuildScripts/BuildScripts/BuildScripts.csproj -- dbReset
+alias jobImport = dotnet run --project c:/Users/adam.miller/Documents/Projects/JEDIv2_Tool_Shed/Dev/BuildScripts/BuildScripts/BuildScripts.csproj -- jobImport
